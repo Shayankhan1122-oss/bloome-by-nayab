@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Confirmed - BLOOME BY NAYAB</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .confirmation-page {
+            padding: 60px 0;
+            min-height: 70vh;
+            background: #f8f9fa;
+        }
+
+        .confirmation-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            padding: 40px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+
+        .success-icon {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .success-icon i {
+            font-size: 80px;
+            color: #28a745;
+            animation: scaleIn 0.5s ease;
+        }
+
+        @keyframes scaleIn {
+            from {
+                transform: scale(0);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .confirmation-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .confirmation-header h1 {
+            color: #28a745;
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        .confirmation-header p {
+            color: #666;
+            font-size: 16px;
+        }
+
+        .order-details {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+
+        .order-details h2 {
+            font-size: 20px;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .detail-row:last-child {
+            border-bottom: none;
+        }
+
+        .detail-label {
+            color: #666;
+            font-weight: 500;
+        }
+
+        .detail-value {
+            color: #2c3e50;
+            font-weight: 600;
+        }
+
+        .order-id {
+            background: #3498db;
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .order-id strong {
+            font-size: 18px;
+        }
+
+        .order-item {
+            display: flex;
+            gap: 15px;
+            padding: 15px;
+            background: white;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #e0e0e0;
+        }
+
+        .order-item img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .order-item-details {
+            flex: 1;
+        }
+
+        .order-item-details h4 {
+            margin-bottom: 5px;
+            color: #333;
+        }
+
+        .order-item-details p {
+            color: #666;
+            font-size: 14px;
+            margin: 3px 0;
+        }
+
+        .order-item-price {
+            text-align: right;
+            font-weight: 600;
+            color: #3498db;
+        }
+
+        .next-steps {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+
+        .next-steps h3 {
+            color: #856404;
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+
+        .next-steps ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .next-steps li {
+            color: #856404;
+            padding: 8px 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .next-steps li i {
+            color: #ffc107;
+            font-size: 18px;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 12px 30px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s;
+        }
+
+        .btn-primary {
+            background: #3498db;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #2980b9;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #545b62;
+            transform: translateY(-2px);
+        }
+
+        .btn-success {
+            background: #28a745;
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: #218838;
+            transform: translateY(-2px);
+        }
+
+        .contact-info {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 30px;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        .contact-info p {
+            color: #666;
+            margin-bottom: 10px;
+        }
+
+        .contact-info a {
+            color: #3498db;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        @media (max-width: 768px) {
+            .confirmation-container {
+                padding: 20px;
+            }
+
+            .success-icon i {
+                font-size: 60px;
+            }
+
+            .confirmation-header h1 {
+                font-size: 24px;
+            }
+
+            .action-buttons {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .order-item {
+                flex-direction: column;
+            }
+
+            .order-item-price {
+                text-align: left;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo">
+                <h1><a href="index.html">BLOOME BY NAYAB</a></h1>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="category.html">Shop</a></li>
+                <li><a href="cart.html">🛒 Cart</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Order Confirmation Page -->
+    <section class="confirmation-page">
+        <div class="container">
+            <div class="confirmation-container">
+                <!-- Success Icon -->
+                <div class="success-icon">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+
+                <!-- Header -->
+                <div class="confirmation-header">
+                    <h1>Order Placed Successfully!</h1>
+                    <p>Thank you for shopping with BLOOME BY NAYAB</p>
+                </div>
+
+                <!-- Order ID -->
+                <div class="order-id">
+                    <strong>Order ID: <span id="order-id">Loading...</span></strong>
+                </div>
+
+                <!-- Order Items -->
+                <div class="order-details" id="order-items-section">
+                    <h2>Order Items</h2>
+                    <div id="order-items-list">
+                        <!-- Items will be loaded dynamically -->
+                    </div>
+                </div>
+
+                <!-- Shipping Address Section -->
+                <div class="order-details" id="shipping-address-section">
+                    <h2>Delivery Address</h2>
+                    <div id="shipping-address-display" style="line-height: 1.8;">
+                        <!-- Address will be loaded dynamically -->
+                    </div>
+                </div>
+
+                <!-- Order Details -->
+                <div class="order-details">
+                    <h2>Order Summary</h2>
+                    <div class="detail-row">
+                        <span class="detail-label">Total Amount</span>
+                        <span class="detail-value" id="order-total">Rs 0.00</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Payment Method</span>
+                        <span class="detail-value" id="payment-method">Cash on Delivery</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Estimated Delivery</span>
+                        <span class="detail-value">3-5 Business Days</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Status</span>
+                        <span class="detail-value" style="color: #ffc107;">⏳ Pending Confirmation</span>
+                    </div>
+                </div>
+
+                <!-- Next Steps -->
+                <div class="next-steps">
+                    <h3>What Happens Next?</h3>
+                    <ul>
+                        <li>
+                            <i class="fas fa-envelope"></i>
+                            <span>You will receive an order confirmation email shortly</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-user-check"></i>
+                            <span>Our admin will review and confirm your order within 24 hours</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-box"></i>
+                            <span>Your order will be dispatched within 1-2 business days after confirmation</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-truck"></i>
+                            <span>Track your order status anytime using your Order ID</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="action-buttons">
+                    <a href="#" class="btn btn-success" id="track-order-btn">
+                        <i class="fas fa-map-marker-alt"></i>
+                        Track Your Order
+                    </a>
+                    <a href="index.html" class="btn btn-primary">
+                        <i class="fas fa-home"></i>
+                        Continue Shopping
+                    </a>
+                    <a href="category.html" class="btn btn-secondary">
+                        <i class="fas fa-shopping-bag"></i>
+                        Browse Products
+                    </a>
+                    <a href="#" class="btn btn-success" id="whatsapp-link">
+                        <i class="fab fa-whatsapp"></i>
+                        Contact on WhatsApp
+                    </a>
+                </div>
+
+                <!-- Contact Info -->
+                <div class="contact-info">
+                    <p>Need help? Contact us:</p>
+                    <p>📧 <a href="mailto:huzaifamadani95@gmail.com" id="support-email">huzaifamadani95@gmail.com</a></p>
+                    <p>📱 <a href="tel:+923348818200" id="support-phone">+92 334 8818200</a></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>BLOOME BY NAYAB</h3>
+                    <p>Premium products for every need. Quality guaranteed.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="category.html">Shop</a></li>
+                        <li><a href="cart.html">Cart</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Customer Service</h4>
+                    <ul>
+                        <li><a href="shipping.html">Shipping Info</a></li>
+                        <li><a href="returns.html">Returns Policy</a></li>
+                        <li><a href="faq.html">FAQ</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact Us</h4>
+                    <ul>
+                        <li id="footer-email">📧 <span>huzaifamadani95@gmail.com</span></li>
+                        <li id="footer-phone">📱 <span>+92 334 8818200</span></li>
+                        <li id="footer-address">📍 <span>Peshawar Pakistan</span></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 BLOOME BY NAYAB. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const lastOrder = JSON.parse(localStorage.getItem('lastOrder'));
+            
+            if (!lastOrder) {
+                alert('No order information found.');
+                window.location.href = 'index.html';
+                return;
+            }
+            
+            // Display order ID
+            document.getElementById('order-id').textContent = lastOrder.orderId || 'N/A';
+            
+            // Display order items
+            const orderItemsList = document.getElementById('order-items-list');
+            if (lastOrder.items && lastOrder.items.length > 0) {
+                orderItemsList.innerHTML = lastOrder.items.map(function(item) {
+                    return '<div class="order-item"><img src="' + item.image + '" alt="' + item.name + '" onerror="this.src=\'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2280%22 height=%2280%22%3E%3Crect fill=%22%23ddd%22 width=%2280%22 height=%2280%22/%3E%3C/svg%3E\'"><div class="order-item-details"><h4>' + item.name + '</h4><p>Quantity: ' + (item.quantity || 1) + '</p><p>Price: Rs ' + (item.price || 0).toFixed(2) + ' × ' + (item.quantity || 1) + '</p></div><div class="order-item-price">Rs ' + ((item.price || 0) * (item.quantity || 1)).toFixed(2) + '</div></div>';
+                }).join('');
+            } else {
+                orderItemsList.innerHTML = '<p style="color: #999;">No items found</p>';
+            }
+            
+            // Display shipping address
+            const shippingAddressDisplay = document.getElementById('shipping-address-display');
+            if (lastOrder.customer && lastOrder.shippingAddress) {
+                shippingAddressDisplay.innerHTML = '<p><strong>' + (lastOrder.customer.fullName || 'N/A') + '</strong></p><p>' + (lastOrder.shippingAddress.address || '') + '</p><p>' + (lastOrder.shippingAddress.city || '') + ', ' + (lastOrder.shippingAddress.state || '') + ' ' + (lastOrder.shippingAddress.zip || '') + '</p><p>' + (lastOrder.shippingAddress.country || 'Pakistan') + '</p><p>📱 ' + (lastOrder.customer.phone || '') + '</p><p>📧 ' + (lastOrder.customer.email || '') + '</p>';
+            } else {
+                shippingAddressDisplay.innerHTML = '<p style="color: #999;">No address information available</p>';
+            }
+            
+            // Display order total
+            document.getElementById('order-total').textContent = 'Rs ' + (lastOrder.total ? lastOrder.total.toFixed(2) : '0.00');
+            
+            // Setup track order button
+            const trackOrderBtn = document.getElementById('track-order-btn');
+            if (trackOrderBtn && lastOrder.orderId) {
+                trackOrderBtn.href = 'track-order.html?order=' + lastOrder.orderId;
+            }
+            
+            // Set payment method
+            const paymentMethodMap = {
+                'cash-on-delivery': 'Cash on Delivery',
+                'bank-transfer': 'Bank Transfer',
+                'jazzcash': 'JazzCash / EasyPaisa'
+            };
+            document.getElementById('payment-method').textContent = paymentMethodMap[lastOrder.paymentMethod] || 'Cash on Delivery';
+            
+            // Setup WhatsApp link
+            const whatsappNumber = '923348818200';
+            const whatsappMessage = 'Hi! I just placed an order (' + lastOrder.orderId + '). Can you please confirm it?';
+            document.getElementById('whatsapp-link').href = 'https://wa.me/' + whatsappNumber + '?text=' + encodeURIComponent(whatsappMessage);
+        });
+    </script>
+</body>
+</html>

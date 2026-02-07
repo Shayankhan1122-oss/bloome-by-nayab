@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - IBREES-LIL-HUZAIFA</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="css/checkout.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo">
+                <h1><a href="index.html">BLOOME BY NAYAB</a></h1>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="category.html">Shop</a></li>
+                <li><a href="cart.html">🛒 Cart</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Breadcrumb -->
+    <section class="breadcrumb">
+        <div class="container">
+            <nav aria-label="breadcrumb">
+                <ol>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="cart.html">Cart</a></li>
+                    <li><span>Checkout</span></li>
+                </ol>
+            </nav>
+        </div>
+    </section>
+
+    <!-- Checkout Page -->
+    <section class="checkout-page">
+        <div class="container">
+            <h1>Checkout</h1>
+            
+            <div class="checkout-container">
+                <!-- Checkout Steps -->
+                <div class="checkout-steps">
+                    <div class="step active" data-step="1">
+                        <span class="step-number">1</span>
+                        <span class="step-text">Shipping</span>
+                    </div>
+                    <div class="step" data-step="2">
+                        <span class="step-number">2</span>
+                        <span class="step-text">Payment</span>
+                    </div>
+                    <div class="step" data-step="3">
+                        <span class="step-number">3</span>
+                        <span class="step-text">Review</span>
+                    </div>
+                </div>
+                
+                <!-- Order Summary Sidebar (MOVED TO TOP) -->
+                <div class="order-summary-sidebar">
+                    <h2>Order Summary</h2>
+                    <div class="summary-items" id="sidebar-order-items">
+                        <!-- Items will be loaded dynamically -->
+                    </div>
+                    <div class="summary-totals" id="sidebar-order-totals">
+                        <!-- Totals will be loaded dynamically -->
+                    </div>
+                </div>
+                
+                <!-- Checkout Forms -->
+                <div class="checkout-forms">
+                    <!-- Step 1: Shipping Information -->
+                    <div class="checkout-step active" id="step-1">
+                        <h2>Shipping Information</h2>
+                        <form id="shipping-form">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="first-name">First Name *</label>
+                                    <input type="text" id="first-name" name="firstName" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="last-name">Last Name *</label>
+                                    <input type="text" id="last-name" name="lastName" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email Address *</label>
+                                <input type="email" id="email" name="email" 
+                                       placeholder="example@email.com" 
+                                       pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+                                       title="Please enter a valid email address (lowercase only)"
+                                       style="text-transform: lowercase;"
+                                       required>
+                                <small style="color: #666; font-size: 12px;">Enter email in lowercase (e.g., john@example.com)</small>
+                            </div>
+                            <div class="form-group">
+                                <label for="phone">Phone Number *</label>
+                                <div style="display: flex; gap: 8px; align-items: center;">
+                                    <input type="text" value="+92" readonly 
+                                           style="width: 60px; background: #f0f0f0; text-align: center; font-weight: 600; border: 1px solid #ddd; padding: 10px; border-radius: 4px; font-size: 14px;">
+                                    <input type="tel" id="phone" name="phone" 
+                                           placeholder="3001234567" 
+                                           pattern="[0-9]{10}"
+                                           title="Enter 10 digit number (e.g., 3001234567)"
+                                           maxlength="10"
+                                           style="flex: 1;"
+                                           required>
+                                </div>
+                                <small style="color: #666; font-size: 12px;">Enter 10 digits without +92 (e.g., 3001234567)</small>
+                            </div>
+                            <div class="form-group">
+                                <label for="address">Complete Address *</label>
+                                <textarea id="address" name="address" rows="3" placeholder="House/Flat No, Street, Area" required></textarea>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="city">City *</label>
+                                    <input type="text" id="city" name="city" placeholder="e.g., Peshawar, Lahore, Karachi" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="state">Province *</label>
+                                    <select id="state" name="state" required>
+                                        <option value="">Select Province</option>
+                                        <option value="Punjab">Punjab</option>
+                                        <option value="Sindh">Sindh</option>
+                                        <option value="Khyber Pakhtunkhwa">Khyber Pakhtunkhwa</option>
+                                        <option value="Balochistan">Balochistan</option>
+                                        <option value="Gilgit-Baltistan">Gilgit-Baltistan</option>
+                                        <option value="Azad Kashmir">Azad Jammu & Kashmir</option>
+                                        <option value="Islamabad">Islamabad Capital Territory</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="zip">Postal Code</label>
+                                    <input type="text" id="zip" name="zip" placeholder="Optional">
+                                </div>
+                            </div>
+                            <input type="hidden" id="country" name="country" value="Pakistan">
+                            
+                            <div class="shipping-info-box">
+                                <i class="fas fa-shipping-fast"></i>
+                                <div>
+                                    <strong>Delivery Charges</strong>
+                                    <p style="margin: 5px 0; font-size: 13px; line-height: 1.6;">
+                                        • Rs 500-1,999: Rs 250<br>
+                                        • Rs 2,000-2,999: Rs 350<br>
+                                        • Rs 3,000-4,999: Rs 500<br>
+                                        • Rs 5,000+: <strong style="color: #28a745;">FREE 🎉</strong>
+                                    </p>
+                                    <p style="margin-top: 10px; color: #dc3545; font-weight: 600; font-size: 14px;">
+                                        ⚠️ Minimum order: Rs 500
+                                    </p>
+                                </div>
+                            </div>
+                            
+                            <button type="button" class="btn btn-primary" id="continue-to-payment">Continue to Payment</button>
+                        </form>
+                    </div>
+                    
+                    <!-- Step 2: Payment Method -->
+                    <div class="checkout-step" id="step-2">
+                        <h2>Payment Method</h2>
+                        <form id="payment-form">
+                            <div class="payment-options">
+                                <div class="payment-option">
+                                    <input type="radio" id="cash-on-delivery" name="payment" value="cash-on-delivery" checked disabled>
+                                    <label for="cash-on-delivery">
+                                        <div class="payment-header">
+                                            <i class="fas fa-money-bill-wave"></i>
+                                            <h3>Cash on Delivery</h3>
+                                        </div>
+                                        <p>Pay when you receive your order</p>
+                                        <p style="color: #28a745; font-weight: 600; margin-top: 5px;">✓ Only payment method available</p>
+                                    </label>
+                                </div>
+                            </div>
+                            
+                            <div class="secure-payment">
+                                <i class="fas fa-shield-alt"></i>
+                                <span>Pay cash to our delivery person when your order arrives</span>
+                            </div>
+                            
+                            <div class="form-actions">
+                                <button type="button" class="btn btn-secondary" id="back-to-shipping">Back</button>
+                                <button type="button" class="btn btn-primary" id="continue-to-review">Review Order</button>
+                            </div>
+                        </form>
+                    </div>
+                    
+                    <!-- Step 3: Order Review -->
+                    <div class="checkout-step" id="step-3">
+                        <h2>Order Review</h2>
+                        <div class="review-content">
+                            <!-- Order Items -->
+                            <div class="review-section">
+                                <h3>Items Ordered</h3>
+                                <div class="order-items" id="review-order-items">
+                                    <!-- Items will be loaded dynamically -->
+                                </div>
+                            </div>
+                            
+                            <!-- Shipping Address -->
+                            <div class="review-section">
+                                <h3>Delivery Address</h3>
+                                <div class="shipping-address" id="review-shipping-address">
+                                    <!-- Address will be loaded dynamically -->
+                                </div>
+                            </div>
+                            
+                            <!-- Payment Method -->
+                            <div class="review-section">
+                                <h3>Payment Method</h3>
+                                <div class="payment-method" id="review-payment-method">
+                                    <!-- Payment method will be loaded dynamically -->
+                                </div>
+                            </div>
+                            
+                            <!-- Order Summary -->
+                            <div class="review-section">
+                                <h3>Order Summary</h3>
+                                <div class="order-summary" id="review-order-summary">
+                                    <!-- Summary will be loaded dynamically -->
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group checkbox-group">
+                            <input type="checkbox" id="terms" name="terms" required>
+                            <label for="terms">I agree to the <a href="terms.html" target="_blank">Terms & Conditions</a> and <a href="privacy.html" target="_blank">Privacy Policy</a></label>
+                        </div>
+                        
+                        <div class="form-actions">
+                            <button type="button" class="btn btn-secondary" id="back-to-payment">Back</button>
+                            <button type="button" class="btn btn-primary btn-place-order" id="place-order">
+                                <i class="fas fa-check-circle"></i> Place Order
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>IBREES-LIL-HUZAIFA</h3>
+                    <p>Premium products for every need. Quality guaranteed.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="category.html">Shop</a></li>
+                        <li><a href="cart.html">Cart</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Customer Service</h4>
+                    <ul>
+                        <li><a href="shipping.html">Shipping Info</a></li>
+                        <li><a href="returns.html">Returns Policy</a></li>
+                        <li><a href="faq.html">FAQ</a></li>
+                        <li><a href="terms.html">Terms & Conditions</a></li>
+                        <li><a href="privacy.html">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact Us</h4>
+                    <ul>
+                        <li id="footer-email">📧 <span>support@ibreeslilhuzaifa.com</span></li>
+                        <li id="footer-phone">📱 <span>+92 300 1234567</span></li>
+                        <li id="footer-address">📍 <span>Peshawar, Pakistan</span></li>
+                        <li><a href="/admin/" style="color: #888; font-size: 0.85em;">Admin Access</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 BLOOME BY NAYAB. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <style>
+        .shipping-info-box {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            background: #e7f3ff;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border-left: 4px solid #3498db;
+        }
+        
+        .shipping-info-box i {
+            font-size: 32px;
+            color: #3498db;
+        }
+        
+        .shipping-info-box strong {
+            display: block;
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+        
+        .shipping-info-box p {
+            color: #666;
+            margin: 0;
+            font-size: 14px;
+        }
+        
+        .btn-place-order {
+            font-size: 16px;
+            padding: 15px 30px;
+        }
+        
+        .btn-place-order i {
+            margin-right: 8px;
+        }
+
+        /* Quantity Selector Styles */
+        .quantity-selector {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 8px;
+        }
+
+        .quantity-selector button {
+            width: 32px;
+            height: 32px;
+            border: 1px solid #ddd;
+            background: white;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+
+        .quantity-selector button:hover {
+            background: #3498db;
+            color: white;
+            border-color: #3498db;
+        }
+
+        .quantity-selector button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            background: #f0f0f0;
+        }
+
+        .quantity-selector input {
+            width: 60px;
+            height: 32px;
+            text-align: center;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .quantity-selector label {
+            font-size: 13px;
+            color: #666;
+            margin-right: 5px;
+        }
+    </style>
+
+    <script src="js/main.js"></script>
+    <script src="js/checkout.js"></script>
+    <script>
+        // Load footer settings
+        try {
+            const storeSettings = JSON.parse(localStorage.getItem('storeSettings'));
+            if (storeSettings) {
+                if (storeSettings.email) document.querySelector('#footer-email span').textContent = storeSettings.email;
+                if (storeSettings.phone) document.querySelector('#footer-phone span').textContent = storeSettings.phone;
+                if (storeSettings.address) document.querySelector('#footer-address span').textContent = storeSettings.address;
+            }
+        } catch (e) {}
+    </script>
+</body>
+</html>

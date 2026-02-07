@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Access -       IBREES-LIL-HUZAIFA</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            margin: 0;
+        }
+        .message {
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            text-align: center;
+        }
+        .message h1 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        .message p {
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="message">
+        <h1>Redirecting to Admin Login...</h1>
+        <p>Please wait</p>
+    </div>
+    
+    <script>
+        // Check if admin is already logged in
+        (function() {
+            const adminData = localStorage.getItem('admin');
+            
+            if (adminData) {
+                try {
+                    const admin = JSON.parse(adminData);
+                    
+                    // Check if valid admin session exists
+                    if (admin.isAdmin === true && 
+                        admin.verified === true && 
+                        admin.username === 'huzaifamadani95@gmail.com') {
+                        
+                        // Valid session - redirect to dashboard
+                        window.location.replace('/admin/dashboard.html');
+                        return;
+                    }
+                } catch (e) {
+                    // Invalid data, clear it
+                    localStorage.removeItem('admin');
+                }
+            }
+            
+            // No valid session - redirect to login
+            window.location.replace('/admin/login.html');
+        })();
+    </script>
+</body>
+</html> 

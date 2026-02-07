@@ -1,0 +1,23 @@
+{
+  "name": "      IBREES-LIL-HUZAIFA",
+  "version": "1.0.0",
+  "description": "E-commerce website for BLOOME BY NAYAB",
+  "main": "api/index.js",
+  "scripts": {
+    "dev": "vercel dev",
+    "build": "echo 'No build step required'",
+    "start": "echo 'Deployed on Vercel'"
+  },
+  "keywords": [
+    "ecommerce",
+    "webstore",
+    "vercel",
+    "serverless"
+  ],
+  "author": "BLOOME BY NAYAB",
+  "license": "MIT",
+  "dependencies": {},
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}

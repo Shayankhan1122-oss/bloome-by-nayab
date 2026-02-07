@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings -       IBREES-LIL-HUZAIFA</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f5f5;
+        }
+
+        .container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            width: 250px;
+            background: #2c3e50;
+            color: white;
+            padding: 20px 0;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+        }
+
+        .sidebar h2 {
+            padding: 0 20px 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .sidebar a {
+            display: block;
+            padding: 15px 20px;
+            color: white;
+            text-decoration: none;
+        }
+
+        .sidebar a:hover {
+            background: #34495e;
+        }
+
+        .sidebar a.active {
+            background: #3498db;
+        }
+
+        .main-content {
+            margin-left: 250px;
+            flex: 1;
+            padding: 20px;
+        }
+
+        .header {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            overflow-x: auto;
+        }
+
+        .tab {
+            padding: 10px 20px;
+            border: none;
+            background: #f0f0f0;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            white-space: nowrap;
+            transition: all 0.3s;
+        }
+
+        .tab:hover {
+            background: #e0e0e0;
+        }
+
+        .tab.active {
+            background: #3498db;
+            color: white;
+        }
+
+        .settings-section {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .settings-section.active {
+            display: block;
+        }
+
+        .settings-section h2 {
+            margin-bottom: 20px;
+            color: #2c3e50;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #555;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            max-width: 800px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 300px;
+            font-family: inherit;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .btn-primary {
+            background: #3498db;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #2980b9;
+        }
+
+        .btn-danger {
+            background: #e74c3c;
+            color: white;
+        }
+
+        .info-box {
+            background: #e7f3ff;
+            border-left: 4px solid #3498db;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+
+        .success-msg {
+            background: #d4edda;
+            color: #155724;
+            padding: 12px;
+            border-radius: 4px;
+            margin-bottom: 15px;
+            display: none;
+        }
+
+        .success-msg.show {
+            display: block;
+            animation: fadeIn 0.3s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        /* ===== MOBILE RESPONSIVE - START ===== */
+@media (max-width: 768px) {
+    .sidebar, .admin-sidebar {
+        position: fixed;
+        left: -250px;
+        transition: left 0.3s ease;
+        z-index: 1000;
+    }
+    .sidebar.show, .admin-sidebar.show {
+        left: 0;
+    }
+    .main-content, .admin-main {
+        margin-left: 0 !important;
+        padding: 10px;
+    }
+    .header, .admin-header {
+        flex-direction: column;
+        gap: 15px;
+        align-items: flex-start;
+        padding: 15px;
+    }
+    .header h1, .admin-header h1 {
+        font-size: 22px;
+    }
+    .stats, .stats-grid {
+        grid-template-columns: 1fr !important;
+        gap: 15px;
+    }
+    .stat-card {
+        padding: 15px;
+    }
+    .stat-card .value, .stat-value {
+        font-size: 24px;
+    }
+    .controls {
+        flex-direction: column;
+        padding: 15px;
+    }
+    .controls input[type="text"], .controls select {
+        width: 100%;
+    }
+    .controls .btn {
+        width: 100%;
+    }
+    .tabs {
+        overflow-x: auto;
+        padding: 10px;
+        gap: 8px;
+    }
+    .tab {
+        padding: 8px 16px;
+        font-size: 13px;
+        flex-shrink: 0;
+    }
+    .table-wrapper {
+        padding: 10px;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    table {
+        min-width: 800px;
+        font-size: 13px;
+    }
+    th, td {
+        padding: 8px 6px;
+        white-space: nowrap;
+    }
+    .btn-view, .btn-edit, .btn-delete, .btn-confirm, .btn-cancel {
+        padding: 4px 8px;
+        font-size: 11px;
+    }
+    .modal-content {
+        width: 95%;
+        max-width: 95%;
+        padding: 20px;
+        max-height: 95vh;
+    }
+    .modal-header h2 {
+        font-size: 18px;
+    }
+    .form-group {
+        margin-bottom: 15px;
+    }
+    .form-group label {
+        font-size: 14px;
+    }
+    .form-group input, .form-group select, .form-group textarea {
+        font-size: 14px;
+        padding: 8px;
+    }
+    .settings-section {
+        padding: 15px;
+    }
+    .settings-section h2 {
+        font-size: 20px;
+    }
+    .order-details h3 {
+        font-size: 16px;
+        margin-top: 15px;
+    }
+    .order-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+    .order-item img {
+        width: 80px;
+        height: 80px;
+    }
+    .info-row {
+        flex-direction: column;
+        gap: 5px;
+        padding: 6px 0;
+    }
+    .status-buttons {
+        flex-direction: column;
+    }
+    .status-btn {
+        width: 100%;
+        padding: 12px 16px;
+    }
+    .images-preview-container {
+        gap: 8px;
+    }
+    .preview-image-wrapper {
+        width: 80px;
+        height: 80px;
+    }
+    .pagination {
+        padding: 15px 10px;
+    }
+    .pagination button {
+        padding: 8px 12px;
+        font-size: 13px;
+    }
+    .admin-user {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+        width: 100%;
+    }
+    .btn-logout {
+        width: 100%;
+    }
+    .info-box {
+        padding: 12px;
+        font-size: 13px;
+    }
+}
+.menu-toggle {
+    display: none;
+    position: fixed;
+    top: 15px;
+    left: 15px;
+    z-index: 1001;
+    background: #3498db;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 20px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+}
+@media (max-width: 768px) {
+    .menu-toggle {
+        display: block;
+    }
+}
+.sidebar-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    z-index: 999;
+}
+.sidebar-overlay.show {
+    display: block;
+}
+/* ===== MOBILE RESPONSIVE - END ===== */
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="sidebar">
+            <h2>      IBREES-LIL-HUZAIFA</h2>
+            <a href="dashboard.html">📊 Dashboard</a>
+            <a href="products.html">📦 Products</a>
+            <a href="orders.html">🛒 Orders</a>
+            <a href="customers.html">👥 Customers</a>
+            <a href="settings.html" class="active">⚙️ Settings</a>
+            <a href="#" onclick="logout()">🚪 Logout</a>
+        </div>
+
+        <div class="main-content">
+            <div class="header">
+                <h1>Settings</h1>
+                <span id="admin-name">Admin</span>
+            </div>
+
+            <!-- Tabs -->
+            <div class="tabs">
+                <button class="tab active" onclick="switchTab('store')">Store Info</button>
+                <button class="tab" onclick="switchTab('shipping')">Shipping Info</button>
+                <button class="tab" onclick="switchTab('returns')">Returns Policy</button>
+                <button class="tab" onclick="switchTab('faq')">FAQ</button>
+                <button class="tab" onclick="switchTab('terms')">Terms & Conditions</button>
+                <button class="tab" onclick="switchTab('privacy')">Privacy Policy</button>
+                <button class="tab" onclick="switchTab('account')">Admin Account</button>
+            </div>
+
+            <div id="success-message" class="success-msg"></div>
+
+            <!-- Store Info -->
+            <div class="settings-section active" id="store-section">
+                <h2>Store Information</h2>
+                <div class="form-group">
+                    <label>Store Name</label>
+                    <input type="text" id="store-name">
+                </div>
+                <div class="form-group">
+                    <label>Store Email</label>
+                    <input type="email" id="store-email">
+                </div>
+                <div class="form-group">
+                    <label>Store Phone</label>
+                    <input type="text" id="store-phone">
+                </div>
+                <div class="form-group">
+                    <label>Store Address</label>
+                    <textarea id="store-address" rows="3"></textarea>
+                </div>
+                <button class="btn btn-primary" onclick="saveStoreInfo()">Save Changes</button>
+            </div>
+
+            <!-- Shipping Info -->
+            <div class="settings-section" id="shipping-section">
+                <h2>Shipping Information</h2>
+                <div class="form-group">
+                    <label>Shipping Policy Content</label>
+                    <textarea id="shipping-content"></textarea>
+                </div>
+                <button class="btn btn-primary" onclick="saveShippingInfo()">Save Changes</button>
+            </div>
+
+            <!-- Returns Policy -->
+            <div class="settings-section" id="returns-section">
+                <h2>Returns Policy</h2>
+                <div class="form-group">
+                    <label>Returns Policy Content</label>
+                    <textarea id="returns-content"></textarea>
+                </div>
+                <button class="btn btn-primary" onclick="saveReturnsInfo()">Save Changes</button>
+            </div>
+
+            <!-- FAQ -->
+            <div class="settings-section" id="faq-section">
+                <h2>Frequently Asked Questions</h2>
+                <div class="form-group">
+                    <label>FAQ Content</label>
+                    <textarea id="faq-content"></textarea>
+                </div>
+                <button class="btn btn-primary" onclick="saveFAQ()">Save Changes</button>
+            </div>
+
+            <!-- Terms & Conditions -->
+            <div class="settings-section" id="terms-section">
+                <h2>Terms & Conditions</h2>
+                <div class="form-group">
+                    <label>Terms & Conditions Content</label>
+                    <textarea id="terms-content"></textarea>
+                </div>
+                <button class="btn btn-primary" onclick="saveTerms()">Save Changes</button>
+            </div>
+
+            <!-- Privacy Policy -->
+            <div class="settings-section" id="privacy-section">
+                <h2>Privacy Policy</h2>
+                <div class="form-group">
+                    <label>Privacy Policy Content</label>
+                    <textarea id="privacy-content"></textarea>
+                </div>
+                <button class="btn btn-primary" onclick="savePrivacy()">Save Changes</button>
+            </div>
+
+            <!-- Admin Account -->
+            <div class="settings-section" id="account-section">
+                <h2>Admin Account</h2>
+                <div class="info-box">
+                    <p><strong>Current Admin:</strong> huzaifamadani95@gmail.com</p>
+                    <p><strong>Role:</strong> Super Administrator</p>
+                </div>
+                <div class="form-group">
+                    <label>Change Password</label>
+                    <input type="password" id="new-password" placeholder="Enter new password">
+                </div>
+                <div class="form-group">
+                    <label>Confirm Password</label>
+                    <input type="password" id="confirm-password" placeholder="Confirm new password">
+                </div>
+                <button class="btn btn-primary" id="change-password-btn" onclick="changePassword(this)">Update Password</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Default content
+        const defaults = {
+            storeName: 'BLOOME BY NAYAB',
+            storeEmail: 'support@ibreeslilutoor.com',
+            storePhone: '+92 300 1234567',
+            storeAddress: 'Peshawar, Khyber Pakhtunkhwa, Pakistan',
+            shipping: `We offer shipping across Pakistan.
+
+Delivery Time: 3-5 business days
+Shipping Charges: Rs 200 (Free for orders above Rs 5000)
+Tracking: Available for all orders
+
+For international shipping, please contact us at support@ibreeslilutoor.com`,
+            returns: `Return & Exchange Policy
+
+We accept returns within 7 days of delivery.
+
+Conditions:
+- Product must be unused and in original packaging
+- Return shipping costs are borne by the customer
+- Refund will be processed within 5-7 business days
+
+To initiate a return, contact us at support@ibreeslilutoor.com`,
+            faq: `Frequently Asked Questions
+
+Q: How do I track my order?
+A: You will receive a tracking link via email after your order is confirmed.
+
+Q: What payment methods do you accept?
+A: We accept Cash on Delivery (COD) and bank transfers.
+
+Q: Do you ship internationally?
+A: Currently, we only ship within Pakistan. Contact us for international orders.
+
+Q: How can I contact customer support?
+A: Email us at support@ibreeslilutoor.com or call +92 300 1234567`,
+            terms: `Terms & Conditions
+
+By using our website and services, you agree to these terms:
+
+1. Product Information: We strive for accuracy but cannot guarantee all product details are error-free.
+
+2. Pricing: All prices are in Pakistani Rupees (PKR) and subject to change without notice.
+
+3. Orders: All orders are subject to availability and confirmation.
+
+4. Payment: Payment must be completed as per selected method before delivery.
+
+5. Liability: We are not liable for delays due to circumstances beyond our control.
+
+For questions, contact support@ibreeslilutoor.com`,
+            privacy: `Privacy Policy
+
+We respect your privacy and are committed to protecting your personal information.
+
+Information We Collect:
+- Name, email, phone number, and shipping address
+- Order history and preferences
+
+How We Use Your Information:
+- To process and fulfill your orders
+- To send order updates and promotional emails
+- To improve our services
+
+Data Security:
+We implement security measures to protect your personal information.
+
+Your Rights:
+You can request to view, update, or delete your personal data by contacting us.
+
+Contact: support@ibreeslilutoor.com`
+        };
+
+        function logout() {
+            if (confirm('Logout?')) {
+                localStorage.removeItem('admin');
+                window.location.href = '/admin/login.html';
+            }
+        }
+
+        function switchTab(tab) {
+            // Update tabs
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            event.target.classList.add('active');
+
+            // Update sections
+            document.querySelectorAll('.settings-section').forEach(s => s.classList.remove('active'));
+            document.getElementById(tab + '-section').classList.add('active');
+        }
+
+        function showSuccess(message) {
+            const msg = document.getElementById('success-message');
+            msg.textContent = message;
+            msg.classList.add('show');
+            setTimeout(() => msg.classList.remove('show'), 3000);
+        }
+
+        function saveStoreInfo() {
+            const settings = {
+                name: document.getElementById('store-name').value,
+                email: document.getElementById('store-email').value,
+                phone: document.getElementById('store-phone').value,
+                address: document.getElementById('store-address').value
+            };
+            // Save locally and to server
+            localStorage.setItem('storeSettings', JSON.stringify(settings));
+            fetch('/api/admin/settings', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ storeSettings: settings })
+            }).then(res => res.json()).then(data => {
+                if (data.success) showSuccess('✅ Store information saved successfully!');
+                else showSuccess('⚠️ Saved locally; server save failed');
+            }).catch(() => {
+                showSuccess('⚠️ Saved locally; server save failed');
+            });
+        }
+
+        function saveShippingInfo() {
+            const val = document.getElementById('shipping-content').value;
+            localStorage.setItem('shippingPolicy', val);
+            fetch('/api/admin/settings', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ shippingPolicy: val })
+            }).then(res => res.json()).then(data => {
+                if (data.success) showSuccess('✅ Shipping information saved successfully!');
+                else showSuccess('⚠️ Saved locally; server save failed');
+            }).catch(() => showSuccess('⚠️ Saved locally; server save failed'));
+        }
+
+        function saveReturnsInfo() {
+            const val = document.getElementById('returns-content').value;
+            localStorage.setItem('returnsPolicy', val);
+            fetch('/api/admin/settings', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ returnsPolicy: val })
+            }).then(res => res.json()).then(data => {
+                if (data.success) showSuccess('✅ Returns policy saved successfully!');
+                else showSuccess('⚠️ Saved locally; server save failed');
+            }).catch(() => showSuccess('⚠️ Saved locally; server save failed'));
+        }
+
+        function saveFAQ() {
+            const val = document.getElementById('faq-content').value;
+            localStorage.setItem('faqContent', val);
+            fetch('/api/admin/settings', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ faqContent: val })
+            }).then(res => res.json()).then(data => {
+                if (data.success) showSuccess('✅ FAQ saved successfully!');
+                else showSuccess('⚠️ Saved locally; server save failed');
+            }).catch(() => showSuccess('⚠️ Saved locally; server save failed'));
+        }
+
+        function saveTerms() {
+            const val = document.getElementById('terms-content').value;
+            localStorage.setItem('termsConditions', val);
+            fetch('/api/admin/settings', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ termsConditions: val })
+            }).then(res => res.json()).then(data => {
+                if (data.success) showSuccess('✅ Terms & Conditions saved successfully!');
+                else showSuccess('⚠️ Saved locally; server save failed');
+            }).catch(() => showSuccess('⚠️ Saved locally; server save failed'));
+        }
+
+        function savePrivacy() {
+            const val = document.getElementById('privacy-content').value;
+            localStorage.setItem('privacyPolicy', val);
+            fetch('/api/admin/settings', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ privacyPolicy: val })
+            }).then(res => res.json()).then(data => {
+                if (data.success) showSuccess('✅ Privacy Policy saved successfully!');
+                else showSuccess('⚠️ Saved locally; server save failed');
+            }).catch(() => showSuccess('⚠️ Saved locally; server save failed'));
+        }
+
+        function changePassword(buttonElement) {
+            const newPass = document.getElementById('new-password').value.trim();
+            const confirmPass = document.getElementById('confirm-password').value.trim();
+            
+            if (!newPass || !confirmPass) {
+                alert('❌ Please enter both password fields');
+                return;
+            }
+            
+            if (newPass !== confirmPass) {
+                alert('❌ Passwords do not match');
+                return;
+            }
+            
+            if (newPass.length < 6) {
+                alert('❌ Password must be at least 6 characters long');
+                return;
+            }
+
+            const admin = JSON.parse(localStorage.getItem('admin') || '{}');
+            if (!admin || !admin.username) {
+                alert('❌ Not logged in');
+                return;
+            }
+
+            const currentPassword = prompt('Enter your current password to confirm:');
+            if (!currentPassword) {
+                alert('❌ Current password required');
+                return;
+            }
+
+            // Disable button and show loading state
+            const originalText = buttonElement.textContent;
+            buttonElement.textContent = 'Updating...';
+            buttonElement.disabled = true;
+
+            fetch('/api/auth/change-password', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    email: admin.username,
+                    currentPassword: currentPassword,
+                    newPassword: newPass
+                })
+            })
+            .then(res => res.json())
+            .then(data => {
+                buttonElement.textContent = originalText;
+                buttonElement.disabled = false;
+
+                if (data.success) {
+                    showSuccess('✅ Password updated successfully!');
+                    document.getElementById('new-password').value = '';
+                    document.getElementById('confirm-password').value = '';
+                    alert('✅ Password updated successfully! Please login again with your new password.');
+                    setTimeout(() => {
+                        logout();
+                    }, 1000);
+                } else {
+                    alert('❌ ' + (data.error || 'Failed to update password'));
+                }
+            })
+            .catch(error => {
+                buttonElement.textContent = originalText;
+                buttonElement.disabled = false;
+                alert('❌ Error: ' + error.message);
+            });
+        }
+
+        // Load saved settings on page load
+        function loadSettings() {
+            // Try server first, fall back to localStorage
+            fetch('/api/admin/settings').then(r => r.json()).then(data => {
+                if (data && data.success && data.settings) {
+                    const s = data.settings;
+                    const store = s.storeSettings || {};
+                    document.getElementById('store-name').value = store.name || defaults.storeName;
+                    document.getElementById('store-email').value = store.email || defaults.storeEmail;
+                    document.getElementById('store-phone').value = store.phone || defaults.storePhone;
+                    document.getElementById('store-address').value = store.address || defaults.storeAddress;
+
+                    document.getElementById('shipping-content').value = s.shippingPolicy || defaults.shipping;
+                    document.getElementById('returns-content').value = s.returnsPolicy || defaults.returns;
+                    document.getElementById('faq-content').value = s.faqContent || defaults.faq;
+                    document.getElementById('terms-content').value = s.termsConditions || defaults.terms;
+                    document.getElementById('privacy-content').value = s.privacyPolicy || defaults.privacy;
+                    // Mirror into localStorage for legacy pages
+                    localStorage.setItem('storeSettings', JSON.stringify(store));
+                    localStorage.setItem('shippingPolicy', s.shippingPolicy || '');
+                    localStorage.setItem('returnsPolicy', s.returnsPolicy || '');
+                    localStorage.setItem('faqContent', s.faqContent || '');
+                    localStorage.setItem('termsConditions', s.termsConditions || '');
+                    localStorage.setItem('privacyPolicy', s.privacyPolicy || '');
+                    return;
+                }
+
+                // fallback to localStorage
+                const storeSettings = JSON.parse(localStorage.getItem('storeSettings') || '{}');
+                document.getElementById('store-name').value = storeSettings.name || defaults.storeName;
+                document.getElementById('store-email').value = storeSettings.email || defaults.storeEmail;
+                document.getElementById('store-phone').value = storeSettings.phone || defaults.storePhone;
+                document.getElementById('store-address').value = storeSettings.address || defaults.storeAddress;
+
+                document.getElementById('shipping-content').value = localStorage.getItem('shippingPolicy') || defaults.shipping;
+                document.getElementById('returns-content').value = localStorage.getItem('returnsPolicy') || defaults.returns;
+                document.getElementById('faq-content').value = localStorage.getItem('faqContent') || defaults.faq;
+                document.getElementById('terms-content').value = localStorage.getItem('termsConditions') || defaults.terms;
+                document.getElementById('privacy-content').value = localStorage.getItem('privacyPolicy') || defaults.privacy;
+            }).catch(() => {
+                const storeSettings = JSON.parse(localStorage.getItem('storeSettings') || '{}');
+                document.getElementById('store-name').value = storeSettings.name || defaults.storeName;
+                document.getElementById('store-email').value = storeSettings.email || defaults.storeEmail;
+                document.getElementById('store-phone').value = storeSettings.phone || defaults.storePhone;
+                document.getElementById('store-address').value = storeSettings.address || defaults.storeAddress;
+
+                document.getElementById('shipping-content').value = localStorage.getItem('shippingPolicy') || defaults.shipping;
+                document.getElementById('returns-content').value = localStorage.getItem('returnsPolicy') || defaults.returns;
+                document.getElementById('faq-content').value = localStorage.getItem('faqContent') || defaults.faq;
+                document.getElementById('terms-content').value = localStorage.getItem('termsConditions') || defaults.terms;
+                document.getElementById('privacy-content').value = localStorage.getItem('privacyPolicy') || defaults.privacy;
+            });
+
+            // Admin name
+            try {
+                const admin = JSON.parse(localStorage.getItem('admin'));
+                if (admin && admin.username) {
+                    document.getElementById('admin-name').textContent = admin.username;
+                }
+            } catch (e) {}
+        }
+
+        // Initialize
+        loadSettings();
+    </script>
+    <script>
+/* ===== MOBILE MENU - START ===== */
+document.addEventListener('DOMContentLoaded', function() {
+    const menuToggle = document.createElement('button');
+    menuToggle.className = 'menu-toggle';
+    menuToggle.innerHTML = '☰';
+    menuToggle.setAttribute('aria-label', 'Toggle Menu');
+    document.body.insertBefore(menuToggle, document.body.firstChild);
+    
+    const overlay = document.createElement('div');
+    overlay.className = 'sidebar-overlay';
+    document.body.appendChild(overlay);
+    
+    const sidebar = document.querySelector('.sidebar') || document.querySelector('.admin-sidebar');
+    
+    menuToggle.addEventListener('click', function() {
+        sidebar.classList.toggle('show');
+        overlay.classList.toggle('show');
+        menuToggle.innerHTML = sidebar.classList.contains('show') ? '✕' : '☰';
+    });
+    
+    overlay.addEventListener('click', function() {
+        sidebar.classList.remove('show');
+        overlay.classList.remove('show');
+        menuToggle.innerHTML = '☰';
+    });
+    
+    const sidebarLinks = sidebar.querySelectorAll('a');
+    sidebarLinks.forEach(link => {
+        link.addEventListener('click', function() {
+            if (window.innerWidth <= 768) {
+                sidebar.classList.remove('show');
+                overlay.classList.remove('show');
+                menuToggle.innerHTML = '☰';
+            }
+        });
+    });
+});
+/* ===== MOBILE MENU - END ===== */
+</script>
+</body>
+</html>

@@ -1,0 +1,96 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy - BLOOME BY NAYAB</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .page-content {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 40px 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .page-content h1 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #3498db;
+        }
+        .page-content pre {
+            white-space: pre-wrap;
+            font-family: inherit;
+            line-height: 1.8;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo">
+                <h1><a href="index.html">BLOOME BY NAYAB</a></h1>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="category.html">Shop</a></li>
+                <li><a href="cart.html">🛒 Cart</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="page-content">
+        <h1>Privacy Policy</h1>
+        <pre id="content">Loading...</pre>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>&copy; 2026 BLOOME BY NAYAB. All rights reserved. | <a href="index.html">Back to Home</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const defaultContent = `Privacy Policy
+
+We respect your privacy and are committed to protecting your personal information.
+
+Information We Collect:
+- Name, email, phone number, and shipping address
+- Order history and preferences
+
+How We Use Your Information:
+- To process and fulfill your orders
+- To send order updates and promotional emails
+- To improve our services
+
+Data Security:
+We implement security measures to protect your personal information.
+
+Your Rights:
+You can request to view, update, or delete your personal data by contacting us.
+
+Contact: support@ibreeslilutoor.com`;
+
+        // Try server settings first
+        fetch('/api/admin/settings').then(r => r.json()).then(data => {
+            if (data && data.success && data.settings && data.settings.privacyPolicy) {
+                document.getElementById('content').textContent = data.settings.privacyPolicy;
+                // mirror to localStorage
+                localStorage.setItem('privacyPolicy', data.settings.privacyPolicy);
+                return;
+            }
+            const content = localStorage.getItem('privacyPolicy') || defaultContent;
+            document.getElementById('content').textContent = content;
+        }).catch(() => {
+            const content = localStorage.getItem('privacyPolicy') || defaultContent;
+            document.getElementById('content').textContent = content;
+        });
+    </script>
+</body>
+</html>

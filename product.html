@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Detail - IBREES-LIL-HUZAIFA</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="css/product-detail.css">
+</head>
+<body>
+    <!-- Header Section -->
+    <header class="header">
+        <div class="top-header">
+            <div class="container">
+                <div class="header-content">
+                    <div class="logo">
+                        <h1>IBREES-LIL-HUZAIFA</h1>
+                    </div>
+                    <nav class="main-nav">
+                        <ul>
+                            <li><a href="index.html">Home</a></li>
+                            <li><a href="shop.html">Shop</a></li>
+                            <li><a href="index.html#categories">Categories</a></li>
+                            <li><a href="about.html">About Us</a></li>
+                            <li><a href="contact.html">Contact</a></li>
+                        </ul>
+                    </nav>
+                    <div class="header-actions">
+                        <div class="search-bar">
+                            <input type="text" placeholder="Search products..." id="search-input">
+                            <button><i class="fas fa-search"></i></button>
+                        </div>
+                        <div class="user-actions">
+                            <a href="account.html" class="user-icon"><i class="fas fa-user"></i></a>
+                            <a href="cart.html" class="cart-icon">
+                                <i class="fas fa-shopping-cart"></i>
+                                <span class="cart-count">0</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Breadcrumb -->
+    <section class="breadcrumb">
+        <div class="container">
+            <nav aria-label="breadcrumb">
+                <ol>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="category.html?cat=fragrances">Fragrances</a></li>
+                    <li><span id="product-name">Premium Perfume</span></li>
+                </ol>
+            </nav>
+        </div>
+    </section>
+
+    <!-- Product Detail Section -->
+    <section class="product-detail">
+        <div class="container">
+            <div class="product-detail-content">
+                <!-- Product Images Section -->
+                <div class="product-images">
+                    <div class="main-image">
+                        <img id="main-product-image" src="images/products/perfume1.jpg" alt="Premium Perfume" zoom-src="images/products/perfume1-large.jpg">
+                    </div>
+                    <div class="thumbnail-gallery">
+                        <div class="thumbnail active" data-src="images/products/perfume1.jpg">
+                            <img src="images/products/perfume1-thumb.jpg" alt="Thumbnail 1">
+                        </div>
+                        <div class="thumbnail" data-src="images/products/perfume1-2.jpg">
+                            <img src="images/products/perfume1-2-thumb.jpg" alt="Thumbnail 2">
+                        </div>
+                        <div class="thumbnail" data-src="images/products/perfume1-3.jpg">
+                            <img src="images/products/perfume1-3-thumb.jpg" alt="Thumbnail 3">
+                        </div>
+                        <div class="thumbnail" data-src="images/products/perfume1-4.jpg">
+                            <img src="images/products/perfume1-4-thumb.jpg" alt="Thumbnail 4">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product Information Section -->
+                <div class="product-info">
+                    <h1 id="product-title">Premium Perfume</h1>
+                    <div class="product-meta">
+                        <span class="sku">SKU: PR-001</span>
+                        <div class="product-rating">
+                            <span id="product-rating">4.5</span>
+                            <div class="stars">
+                                <i class="fas fa-star" style="color: #ffc107;"></i>
+                                <i class="fas fa-star" style="color: #ffc107;"></i>
+                                <i class="fas fa-star" style="color: #ffc107;"></i>
+                                <i class="fas fa-star" style="color: #ffc107;"></i>
+                                <i class="fas fa-star-half-alt" style="color: #ffc107;"></i>
+                                <span>(128 reviews)</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-price">
+                        <span class="current-price">Rs 0.00</span>
+                    </div>
+                    <div class="stock-status">
+                        <span class="in-stock">In Stock</span>
+                        <span class="items-left">Only 5 left in stock</span>
+                    </div>
+                    <p class="short-description">
+                        Experience the finest fragrance with our premium perfume. Made with natural ingredients and long-lasting scent.
+                    </p>
+
+                    <!-- Product Options -->
+                    <div class="product-options">
+                        <div class="option size-option-wrap">
+                            <h3>Size:</h3>
+                            <div class="size-selector"></div>
+                        </div>
+                        
+                        <div class="option">
+                            <h3>Quantity:</h3>
+                            <div class="quantity-selector">
+                                <button class="quantity-btn minus">-</button>
+                                <input type="number" id="quantity" value="1" min="1" max="10">
+                                <button class="quantity-btn plus">+</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="product-actions">
+                        <button class="btn btn-primary add-to-cart" data-id="1">
+                            <i class="fas fa-shopping-cart"></i> Add to Cart
+                        </button>
+                        <button class="btn btn-secondary btn-order-now" data-id="1">
+                            <i class="fas fa-bolt"></i> Order Now
+                        </button>
+                        <div class="share-buttons">
+                            <button class="share-btn"><i class="fab fa-facebook"></i></button>
+                            <button class="share-btn"><i class="fab fa-twitter"></i></button>
+                            <button class="share-btn"><i class="fab fa-pinterest"></i></button>
+                            <button class="share-btn"><i class="fas fa-link"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Product Tabs Section -->
+    <section class="product-tabs">
+        <div class="container">
+            <div class="tabs-container">
+                <ul class="tab-nav">
+                    <li class="tab active" data-tab="description">Description</li>
+                    <li class="tab" data-tab="reviews">Reviews (128)</li>
+                    <li class="tab" data-tab="shipping">Shipping & Returns</li>
+                </ul>
+                
+                <div class="tab-content">
+                    <div class="tab-pane active" id="description">
+                        <h3>Product Description</h3>
+                        <p>Our Premium Perfume is crafted with the finest natural ingredients to provide a long-lasting, captivating scent. This luxurious fragrance combines top notes of bergamot and lemon with middle notes of jasmine and rose, resting on a base of vanilla and musk.</p>
+                        <p>Perfect for any occasion, this perfume is designed to make you feel confident and elegant throughout the day. The sophisticated blend of scents creates a unique olfactory experience that is both memorable and alluring.</p>
+                        <h4>Key Features:</h4>
+                        <ul>
+                            <li>Long-lasting fragrance (up to 12 hours)</li>
+                            <li>Made with natural ingredients</li>
+                            <li>Available in multiple sizes</li>
+                            <li>Eco-friendly packaging</li>
+                            <li>Cruelty-free and vegan</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="tab-pane" id="reviews">
+                        <h3>Customer Reviews</h3>
+                        <div class="reviews-summary">
+                            <div class="rating-overview">
+                                <div class="overall-rating" id="overall-rating">0.0</div>
+                                <div class="stars-large" id="stars-large">
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                </div>
+                                <p id="review-count-text">No reviews yet</p>
+                            </div>
+                            <div class="rating-breakdown" id="rating-breakdown">
+                                <div class="rating-bar">
+                                    <span>5 stars</span>
+                                    <div class="bar">
+                                        <div class="fill" style="width: 0%;"></div>
+                                    </div>
+                                    <span>0</span>
+                                </div>
+                                <div class="rating-bar">
+                                    <span>4 stars</span>
+                                    <div class="bar">
+                                        <div class="fill" style="width: 0%;"></div>
+                                    </div>
+                                    <span>0</span>
+                                </div>
+                                <div class="rating-bar">
+                                    <span>3 stars</span>
+                                    <div class="bar">
+                                        <div class="fill" style="width: 0%;"></div>
+                                    </div>
+                                    <span>0</span>
+                                </div>
+                                <div class="rating-bar">
+                                    <span>2 stars</span>
+                                    <div class="bar">
+                                        <div class="fill" style="width: 0%;"></div>
+                                    </div>
+                                    <span>0</span>
+                                </div>
+                                <div class="rating-bar">
+                                    <span>1 star</span>
+                                    <div class="bar">
+                                        <div class="fill" style="width: 0%;"></div>
+                                    </div>
+                                    <span>0</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="reviews-list" id="reviews-list">
+                            <!-- Reviews will be loaded dynamically -->
+                            <p class="no-reviews">No reviews yet. Be the first to review this product!</p>
+                        </div>
+                        
+                        <div class="add-review">
+                            <h3>Add Your Review</h3>
+                            <form class="review-form" id="review-form">
+                                <div class="form-group">
+                                    <label for="reviewer-name">Your Name *</label>
+                                    <input type="text" id="reviewer-name" placeholder="Enter your name" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="review-rating">Your Rating *</label>
+                                    <div class="rating-input">
+                                        <i class="far fa-star" data-rating="1"></i>
+                                        <i class="far fa-star" data-rating="2"></i>
+                                        <i class="far fa-star" data-rating="3"></i>
+                                        <i class="far fa-star" data-rating="4"></i>
+                                        <i class="far fa-star" data-rating="5"></i>
+                                    </div>
+                                    <input type="hidden" id="selected-rating" value="0">
+                                </div>
+                                <div class="form-group">
+                                    <label for="review-title">Review Title *</label>
+                                    <input type="text" id="review-title" placeholder="Give your review a title" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="review-text">Your Review *</label>
+                                    <textarea id="review-text" rows="5" placeholder="Share your experience with this product" required></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Submit Review</button>
+                            </form>
+                        </div>
+                    </div>
+                    
+                    <div class="tab-pane" id="shipping">
+                        <h3>Shipping Information</h3>
+                        <p><strong>Delivery Coverage:</strong> We offer shipping across Pakistan only.</p>
+                        
+                        <h4>Delivery Charges:</h4>
+                        <table class="spec-table" style="width: 100%; margin: 15px 0;">
+                            <tr>
+                                <td><strong>Order Amount</strong></td>
+                                <td><strong>Delivery Charges</strong></td>
+                            </tr>
+                            <tr>
+                                <td>Rs 500 - Rs 1,999</td>
+                                <td>Rs 250</td>
+                            </tr>
+                            <tr>
+                                <td>Rs 2,000 - Rs 2,999</td>
+                                <td>Rs 350</td>
+                            </tr>
+                            <tr>
+                                <td>Rs 3,000 - Rs 4,999</td>
+                                <td>Rs 500</td>
+                            </tr>
+                            <tr>
+                                <td>Rs 5,000 and above</td>
+                                <td><strong style="color: #28a745;">FREE DELIVERY</strong></td>
+                            </tr>
+                        </table>
+                        
+                        <h4>Delivery Time:</h4>
+                        <ul>
+                            <li><strong>Standard Delivery:</strong> 3-5 business days</li>
+                            <li><strong>Order Tracking:</strong> Available for all orders</li>
+                        </ul>
+                        
+                        <p><strong>Note:</strong> Minimum order amount is Rs 500.</p>
+                        
+                        <h3 style="margin-top: 30px;">Returns Policy</h3>
+                        <p>We accept returns within <strong>7 days of delivery</strong>.</p>
+                        
+                        <h4>Return Conditions:</h4>
+                        <ul>
+                            <li>Product must be unused and in original packaging</li>
+                            <li>Return shipping costs are borne by the customer</li>
+                            <li>Refund will be processed within 5-7 business days</li>
+                        </ul>
+                        
+                        <h4>How to Return:</h4>
+                        <p>To initiate a return, please contact us at <a href="mailto:support@ibreeslilutoor.com" id="shipping-email">support@ibreeslilutoor.com</a> with your order details.</p>
+                        
+                        <p style="margin-top: 20px;"><strong>For any questions about shipping or returns, please contact our customer service team.</strong></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Related Products Section -->
+    <section class="related-products">
+        <div class="container">
+            <h2>You May Also Like</h2>
+            <div class="products-grid" id="related-products">
+                <!-- Related products will be loaded dynamically -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>IBREES-LIL-HUZAIFA</h3>
+                    <p>Premium products for every need. Quality guaranteed.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="faq.html">FAQ</a></li>
+                        <li><a href="shipping.html">Shipping Info</a></li>
+                        <li><a href="privacy.html">Privacy Policy</a></li>
+                        <li><a href="terms.html">Terms & Conditions</a></li>
+                        <li><a href="returns.html">Return Policy</a></li>
+                        <li><a href="admin/login.html" style="color: #888; font-size: 0.85em;">Admin Access</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact Info</h4>
+                    <p><i class="fas fa-phone"></i> <span id="footer-phone">+1 (123) 456-7890</span></p>
+                    <p><i class="fas fa-envelope"></i> <a id="footer-email" href="mailto:info@qariwebstore.com">info@qariwebstore.com</a></p>
+                    <p><i class="fas fa-map-marker-alt"></i> <span id="footer-address">123 Store Street, City, Country</span></p>
+                </div>
+                <div class="footer-section">
+                    <h4>Newsletter</h4>
+                    <p>Subscribe to get special offers and updates</p>
+                    <form class="newsletter-form">
+                        <input type="email" placeholder="Your email address" required>
+                        <button type="submit">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 IBREES-LIL-HUZAIFA. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script src="js/product-detail.js"></script>
+    <script>
+        // Load store settings from server (fallback to localStorage) and populate footer/contact links
+        (function loadStoreSettings() {
+            const defaults = {
+                storeName: 'BLOOME BY NAYAB',
+                storeEmail: 'support@ibreeslilutoor.com',
+                storePhone: '+92 300 1234567',
+                storeAddress: 'Peshawar, Khyber Pakhtunkhwa, Pakistan'
+            };
+
+            function apply(store) {
+                const phone = store.phone || defaults.storePhone;
+                const email = store.email || defaults.storeEmail;
+                const address = store.address || defaults.storeAddress;
+
+                const phoneEl = document.getElementById('footer-phone');
+                const emailEl = document.getElementById('footer-email');
+                const addrEl = document.getElementById('footer-address');
+
+                if (phoneEl) phoneEl.textContent = phone;
+                if (emailEl) {
+                    emailEl.textContent = email;
+                    emailEl.href = `mailto:${email}`;
+                }
+                if (addrEl) addrEl.textContent = address;
+            }
+
+            fetch('/api/admin/settings').then(r => r.json()).then(data => {
+                if (data && data.success && data.settings) {
+                    const s = data.settings.storeSettings || {};
+                    apply(s);
+                    // Mirror to localStorage for legacy usage
+                    localStorage.setItem('storeSettings', JSON.stringify(s));
+                    
+                    // Update shipping email if present
+                    const shippingEmail = document.getElementById('shipping-email');
+                    if (shippingEmail && s.email) {
+                        shippingEmail.textContent = s.email;
+                        shippingEmail.href = `mailto:${s.email}`;
+                    }
+                    return;
+                }
+
+                const storeSettings = JSON.parse(localStorage.getItem('storeSettings') || '{}');
+                apply(storeSettings);
+                
+                // Update shipping email
+                const shippingEmail = document.getElementById('shipping-email');
+                if (shippingEmail && storeSettings.email) {
+                    shippingEmail.textContent = storeSettings.email;
+                    shippingEmail.href = `mailto:${storeSettings.email}`;
+                }
+            }).catch(() => {
+                const storeSettings = JSON.parse(localStorage.getItem('storeSettings') || '{}');
+                apply(storeSettings);
+                
+                // Update shipping email
+                const shippingEmail = document.getElementById('shipping-email');
+                if (shippingEmail && storeSettings.email) {
+                    shippingEmail.textContent = storeSettings.email;
+                    shippingEmail.href = `mailto:${storeSettings.email}`;
+                }
+            });
+        })();
+    </script>
+</body>
+</html>
