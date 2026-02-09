@@ -1,5 +1,5 @@
 {
-  "name": "      IBREES-LIL-HUZAIFA",
+  "name": "bloome-by-nayab",
   "version": "1.0.0",
   "description": "E-commerce website for BLOOME BY NAYAB",
   "main": "api/index.js",
@@ -16,7 +16,9 @@
   ],
   "author": "BLOOME BY NAYAB",
   "license": "MIT",
-  "dependencies": {},
+  "dependencies": {
+    "mongodb": "^7.1.0"
+  },
   "engines": {
     "node": ">=14.0.0"
   }
