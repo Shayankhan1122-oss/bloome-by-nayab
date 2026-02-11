@@ -1,68 +1,22 @@
 // API endpoint for store settings
-// Stores settings in-memory (will reset on redeploy like orders)
-// For production, use a database
+// MongoDB Version - Settings persist permanently
 
-let settings = {
-    storeSettings: {
-        name: 'BLOOME BY NAYAB',
-        email: 'huzaifamadani95@gmail.com',
-        phone: '+92 334 8818200',
-        address: 'Peshawar Pakistan'
-    },
-    shippingPolicy: `We offer shipping across Pakistan.
+import { MongoClient } from 'mongodb';
 
-Delivery Time: 3-5 business days
-Shipping Charges: Variable based on order value
-Tracking: Available for all orders
+const uri = process.env.MONGODB_URI;
+let cachedClient = null;
 
-For questions, contact us at huzaifamadani95@gmail.com`,
-    returnsPolicy: `Return & Exchange Policy
+async function connectToDatabase() {
+  if (cachedClient) {
+    return cachedClient;
+  }
+  const client = new MongoClient(uri);
+  await client.connect();
+  cachedClient = client;
+  return client;
+}
 
-We accept returns within 7 days of delivery.
-
-Conditions:
-- Product must be unused and in original packaging
-- Return shipping costs are borne by the customer
-- Refund will be processed within 5-7 business days
-
-To initiate a return, contact us.`,
-    faqContent: `Frequently Asked Questions
-
-Q: How do I track my order?
-A: You will receive a tracking link via email after your order is confirmed.
-
-Q: What payment methods do you accept?
-A: We accept Cash on Delivery (COD).
-
-Q: Do you ship internationally?
-A: Currently, we only ship within Pakistan.`,
-    termsConditions: `Terms & Conditions
-
-By using our website and services, you agree to these terms.
-
-1. Product Information: We strive for accuracy.
-2. Pricing: All prices are in Pakistani Rupees (PKR).
-3. Orders: All orders are subject to availability.
-4. Payment: Payment must be completed before delivery.
-
-For questions, contact us.`,
-    privacyPolicy: `Privacy Policy
-
-We respect your privacy and protect your personal information.
-
-Information We Collect:
-- Name, email, phone number, and shipping address
-- Order history
-
-How We Use Your Information:
-- To process and fulfill your orders
-- To send order updates
-
-Your Rights:
-You can request to view, update, or delete your personal data.`
-};
-
-export default function handler(req, res) {
+export default async function handler(req, res) {
     // Enable CORS
     res.setHeader('Access-Control-Allow-Credentials', true);
     res.setHeader('Access-Control-Allow-Origin', '*');
@@ -74,20 +28,123 @@ export default function handler(req, res) {
         return;
     }
 
-    // GET - Retrieve settings
-    if (req.method === 'GET') {
-        return res.status(200).json({
-            success: true,
-            settings: settings
-        });
-    }
+    try {
+        const client = await connectToDatabase();
+        const db = client.db('bloome_nayab');
+        const settingsCollection = db.collection('settings');
 
-    // POST - Update settings
-    if (req.method === 'POST') {
-        try {
+        // GET - Retrieve settings
+        if (req.method === 'GET') {
+            let settings = await settingsCollection.findOne({ _id: 'store_settings' });
+            
+            // If no settings exist, create defaults
+            if (!settings) {
+                const defaultSettings = {
+                    _id: 'store_settings',
+                    storeSettings: {
+                        name: 'BLOOME BY NAYAB',
+                        email: 'huzaifamadani95@gmail.com',
+                        phone: '+92 334 8818200',
+                        address: 'Peshawar, Khyber Pakhtunkhwa, Pakistan'
+                    },
+                    shippingPolicy: `We offer shipping across Pakistan.
+
+Delivery Time: 3-5 business days
+Shipping Charges:
+• Rs 500-1,999: Rs 250
+• Rs 2,000-2,999: Rs 350
+• Rs 3,000-4,999: Rs 500
+• Rs 5,000+: FREE 🎉
+
+Tracking: Available for all orders
+
+For questions, contact us at huzaifamadani95@gmail.com`,
+                    returnsPolicy: `Return & Exchange Policy
+
+We accept returns within 7 days of delivery.
+
+Conditions:
+- Product must be unused and in original packaging
+- Return shipping costs are borne by the customer
+- Refund will be processed within 5-7 business days
+
+To initiate a return, contact us at huzaifamadani95@gmail.com`,
+                    faqContent: `Frequently Asked Questions
+
+Q: How do I track my order?
+A: You will receive a tracking link via email after your order is confirmed.
+
+Q: What payment methods do you accept?
+A: We accept Cash on Delivery (COD) for all orders.
+
+Q: Do you ship internationally?
+A: Currently, we only ship within Pakistan.
+
+Q: What is the minimum order amount?
+A: Minimum order amount is Rs 500.`,
+                    termsConditions: `Terms & Conditions
+
+By using BLOOME BY NAYAB website and services, you agree to these terms.
+
+1. Product Information: We strive for accuracy in all product descriptions.
+2. Pricing: All prices are in Pakistani Rupees (PKR) and may change without notice.
+3. Orders: All orders are subject to availability and confirmation.
+4. Payment: Cash on Delivery only.
+5. Delivery: 3-5 business days across Pakistan.
+
+For questions, contact us at huzaifamadani95@gmail.com`,
+                    privacyPolicy: `Privacy Policy
+
+BLOOME BY NAYAB respects your privacy and protects your personal information.
+
+Information We Collect:
+- Name, email, phone number, and shipping address
+- Order history and preferences
+
+How We Use Your Information:
+- To process and fulfill your orders
+- To send order updates and tracking information
+- To improve our products and services
+
+Your Rights:
+You can request to view, update, or delete your personal data by contacting us.
+
+Contact: huzaifamadani95@gmail.com`,
+                    updatedAt: new Date().toISOString()
+                };
+                
+                await settingsCollection.insertOne(defaultSettings);
+                settings = defaultSettings;
+                
+                console.log('✅ Default settings created in MongoDB');
+            }
+            
+            return res.status(200).json({
+                success: true,
+                settings: settings
+            });
+        }
+
+        // POST - Update settings
+        if (req.method === 'POST') {
             const updates = req.body;
             
-            // Update settings object
+            // Get existing settings
+            let settings = await settingsCollection.findOne({ _id: 'store_settings' });
+            
+            if (!settings) {
+                settings = {
+                    _id: 'store_settings',
+                    storeSettings: {},
+                    shippingPolicy: '',
+                    returnsPolicy: '',
+                    faqContent: '',
+                    termsConditions: '',
+                    privacyPolicy: ''
+                };
+            }
+            
+            // Update fields
             if (updates.storeSettings) {
                 settings.storeSettings = {
                     ...settings.storeSettings,
@@ -115,28 +172,35 @@ export default function handler(req, res) {
                 settings.privacyPolicy = updates.privacyPolicy;
             }
             
-            console.log('Settings updated successfully:', {
-                storeSettings: settings.storeSettings
-            });
+            settings.updatedAt = new Date().toISOString();
+            
+            // Upsert to MongoDB
+            await settingsCollection.updateOne(
+                { _id: 'store_settings' },
+                { $set: settings },
+                { upsert: true }
+            );
+            
+            console.log('✅ Settings updated in MongoDB');
             
             return res.status(200).json({
                 success: true,
-                message: 'Settings updated successfully',
+                message: 'Settings updated successfully in MongoDB',
                 settings: settings
             });
-            
-        } catch (error) {
-            console.error('Settings update error:', error);
-            return res.status(500).json({
-                success: false,
-                error: 'Failed to update settings',
-                message: error.message
-            });
         }
-    }
 
-    return res.status(405).json({
-        success: false,
-        error: 'Method not allowed'
-    });
+        return res.status(405).json({
+            success: false,
+            error: 'Method not allowed'
+        });
+
+    } catch (error) {
+        console.error('❌ MongoDB Error:', error);
+        return res.status(500).json({
+            success: false,
+            error: 'Database error',
+            message: error.message
+        });
+    }
 }
