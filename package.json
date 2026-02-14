@@ -8,13 +8,18 @@
     "build": "echo 'Build complete'",
     "start": "echo 'Deployed on Vercel'"
   },
-  "keywords": ["ecommerce", "webstore", "vercel", "serverless"],
+  "keywords": [
+    "ecommerce",
+    "webstore",
+    "vercel",
+    "serverless"
+  ],
   "author": "BLOOME BY NAYAB",
   "license": "MIT",
   "dependencies": {
     "mongodb": "^6.3.0"
   },
   "engines": {
-    "node": "18.x"
+    "node": "24.x"
   }
 }
