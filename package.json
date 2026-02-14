@@ -2,24 +2,19 @@
   "name": "bloome-by-nayab",
   "version": "1.0.0",
   "description": "E-commerce website for BLOOME BY NAYAB",
-  "main": "api/index.js",
+  "type": "module",
   "scripts": {
     "dev": "vercel dev",
-    "build": "echo 'No build step required'",
+    "build": "echo 'Build complete'",
     "start": "echo 'Deployed on Vercel'"
   },
-  "keywords": [
-    "ecommerce",
-    "webstore",
-    "vercel",
-    "serverless"
-  ],
+  "keywords": ["ecommerce", "webstore", "vercel", "serverless"],
   "author": "BLOOME BY NAYAB",
   "license": "MIT",
   "dependencies": {
-    "mongodb": "^7.1.0"
+    "mongodb": "^6.3.0"
   },
   "engines": {
-    "node": ">=14.0.0"
+    "node": "18.x"
   }
 }
