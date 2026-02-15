@@ -37,68 +37,55 @@ export default async function handler(req, res) {
         if (req.method === 'POST') {
             const orderData = req.body;
             
-            console.log('📦 Incoming order data:', JSON.stringify(orderData, null, 2));
-            
-            // Validate required fields
-            if (!orderData.orderId || !orderData.customer || !orderData.items) {
-                console.error('❌ Validation failed: Missing required fields');
-                return res.status(400).json({
-                    success: false,
-                    error: 'Missing required order information'
-                });
-            }
-            
-            // Validate customer info
-            if (!orderData.customer.email || !orderData.customer.fullName) {
-                console.error('❌ Validation failed: Missing customer info');
-                return res.status(400).json({
-                    success: false,
-                    error: 'Customer name and email are required'
-                });
-            }
+            console.log('📦 Incoming order data');
             
             // Get last order ID
             const lastOrder = await ordersCollection.find({}).sort({ id: -1 }).limit(1).toArray();
             const newId = lastOrder.length > 0 ? lastOrder[0].id + 1 : 1;
             
-            // Create order object
+            // Create order object with CORRECT structure
             const order = {
                 id: newId,
                 orderId: orderData.orderId,
-                trackingToken: orderData.trackingToken || orderData.orderId,
-                customer: orderData.customer,
-                items: orderData.items,
+                customer: {
+                    fullName: orderData.customer?.fullName || orderData.customerName,
+                    email: orderData.customer?.email || orderData.email,
+                    phone: orderData.customer?.phone || orderData.phone,
+                },
+                shippingAddress: {
+                    address: orderData.shippingAddress?.address || orderData.address,
+                    city: orderData.shippingAddress?.city || orderData.city,
+                    state: orderData.shippingAddress?.state || orderData.state,
+                    zip: orderData.shippingAddress?.zip || orderData.zip || '',
+                    country: 'Pakistan'
+                },
+                items: orderData.items || [],
                 subtotal: parseFloat(orderData.subtotal || 0),
                 shipping: parseFloat(orderData.shipping || 0),
                 tax: parseFloat(orderData.tax || 0),
                 total: parseFloat(orderData.total || 0),
-                paymentMethod: orderData.paymentMethod || 'cash-on-delivery',
+                paymentMethod: 'Cash on Delivery',
                 status: orderData.status || 'pending',
-                createdAt: orderData.createdAt || new Date().toISOString(),
+                createdAt: new Date().toISOString(),
                 updatedAt: new Date().toISOString()
             };
             
             // Save to MongoDB
             await ordersCollection.insertOne(order);
             
-            console.log('✅ Order saved to MongoDB:', order.orderId);
-            console.log('   Customer:', order.customer.fullName);
-            console.log('   Total:', order.total);
-            console.log('   Items:', order.items.length);
+            console.log('✅ Order saved:', order.orderId);
             
             return res.status(200).json({
                 success: true,
                 orderId: order.orderId,
-                trackingToken: order.trackingToken,
-                message: 'Order placed successfully and saved to database',
-                trackingUrl: `/track-order.html?order=${order.orderId}`,
-                note: 'Your order is pending admin confirmation. You will receive updates via email.'
+                message: 'Order placed successfully',
+                trackingUrl: `/track-order.html?order=${order.orderId}`
             });
         }
         
         // GET - Retrieve orders
         if (req.method === 'GET') {
-            const { orderId, trackingToken } = req.query;
+            const { orderId } = req.query;
             
             if (orderId) {
                 // Get specific order
@@ -113,24 +100,9 @@ export default async function handler(req, res) {
                     success: true,
                     order: order
                 });
-            } else if (trackingToken) {
-                // Get order by tracking token
-                const order = await ordersCollection.findOne({ trackingToken: trackingToken });
-                if (!order) {
-                    return res.status(404).json({
-                        success: false,
-                        error: 'Order not found'
-                    });
-                }
-                return res.status(200).json({
-                    success: true,
-                    order: order
-                });
             } else {
                 // Get all orders (for admin)
                 const orders = await ordersCollection.find({}).sort({ createdAt: -1 }).toArray();
-                
-                console.log(`📊 Retrieved ${orders.length} orders from MongoDB`);
                 
                 return res.status(200).json({
                     success: true,
@@ -169,7 +141,7 @@ export default async function handler(req, res) {
                 });
             }
             
-            console.log('✅ Order status updated in MongoDB:', orderId, '→', status);
+            console.log('✅ Order updated:', orderId, '→', status);
             
             return res.status(200).json({
                 success: true,
@@ -197,7 +169,7 @@ export default async function handler(req, res) {
                 });
             }
             
-            console.log('✅ Order deleted from MongoDB:', orderId);
+            console.log('✅ Order deleted:', orderId);
             
             return res.status(200).json({
                 success: true,
@@ -219,3 +191,7 @@ export default async function handler(req, res) {
         });
     }
 }
+
+export const config = {
+    maxDuration: 30,
+};
