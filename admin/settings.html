@@ -3,384 +3,286 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Settings -       IBREES-LIL-HUZAIFA</title>
-
+    <title>Settings - BLOOME BY NAYAB Admin</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background: linear-gradient(135deg, #faf8f5 0%, #f5f2ed 100%); }
 
-        body {
-            font-family: Arial, sans-serif;
-            background: #f5f5f5;
-        }
-
-        .container {
-            display: flex;
-            min-height: 100vh;
-        }
-
+        .container { display: flex; min-height: 100vh; }
+        
+        /* Luxury Sidebar */
         .sidebar {
-            width: 250px;
-            background: #2c3e50;
+            width: 280px;
+            background: linear-gradient(180deg, #1a1a2e 0%, #16213e 100%);
             color: white;
-            padding: 20px 0;
+            padding: 30px 0;
             position: fixed;
             height: 100vh;
             overflow-y: auto;
+            box-shadow: 4px 0 20px rgba(0,0,0,0.1);
         }
-
         .sidebar h2 {
-            padding: 0 20px 20px;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding: 0 25px 25px;
+            font-family: 'Bodoni Moda', serif;
+            font-size: 24px;
+            letter-spacing: 2px;
+            border-bottom: 1px solid rgba(212,165,116,0.2);
+            color: #d4a574;
         }
-
         .sidebar a {
-            display: block;
-            padding: 15px 20px;
-            color: white;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 15px 25px;
+            color: rgba(255,255,255,0.8);
             text-decoration: none;
+            transition: all 0.3s;
+            font-size: 14px;
+            letter-spacing: 0.5px;
         }
+        .sidebar a:hover { background: rgba(212,165,116,0.1); color: #d4a574; }
+        .sidebar a.active { background: rgba(212,165,116,0.2); color: #d4a574; border-left: 3px solid #d4a574; }
 
-        .sidebar a:hover {
-            background: #34495e;
-        }
-
-        .sidebar a.active {
-            background: #3498db;
-        }
-
+        /* Main Content */
         .main-content {
-            margin-left: 250px;
+            margin-left: 280px;
             flex: 1;
-            padding: 20px;
+            padding: 40px;
         }
-
         .header {
             background: white;
-            padding: 20px;
-            border-radius: 8px;
-            margin-bottom: 20px;
+            padding: 30px;
+            border-radius: 12px;
+            margin-bottom: 30px;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+        .header h1 {
+            font-family: 'Bodoni Moda', serif;
+            font-size: 32px;
+            color: #1a1a2e;
+            letter-spacing: 1px;
+        }
+        #admin-name {
+            background: linear-gradient(135deg, #1a1a2e 0%, #d4a574 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 600;
         }
 
+        /* Luxury Tabs */
         .tabs {
             display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
+            gap: 12px;
+            margin-bottom: 30px;
             background: white;
-            padding: 15px;
-            border-radius: 8px;
+            padding: 20px;
+            border-radius: 12px;
             overflow-x: auto;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
         }
-
         .tab {
-            padding: 10px 20px;
+            padding: 12px 24px;
             border: none;
-            background: #f0f0f0;
-            border-radius: 4px;
+            background: linear-gradient(135deg, #f5f2ed 0%, #e8e3dc 100%);
+            border-radius: 25px;
             cursor: pointer;
-            font-size: 14px;
+            font-size: 13px;
+            font-weight: 500;
+            letter-spacing: 0.5px;
             white-space: nowrap;
             transition: all 0.3s;
+            color: #2d2d2d;
         }
-
-        .tab:hover {
-            background: #e0e0e0;
-        }
-
+        .tab:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
         .tab.active {
-            background: #3498db;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
             color: white;
+            box-shadow: 0 6px 20px rgba(26,26,46,0.3);
         }
 
+        /* Settings Sections */
         .settings-section {
             background: white;
-            padding: 30px;
-            border-radius: 8px;
-            margin-bottom: 20px;
+            padding: 40px;
+            border-radius: 12px;
+            margin-bottom: 30px;
             display: none;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
         }
-
-        .settings-section.active {
-            display: block;
-        }
-
+        .settings-section.active { display: block; animation: fadeIn 0.3s; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        
         .settings-section h2 {
-            margin-bottom: 20px;
-            color: #2c3e50;
-            border-bottom: 2px solid #3498db;
-            padding-bottom: 10px;
+            font-family: 'Bodoni Moda', serif;
+            font-size: 28px;
+            margin-bottom: 30px;
+            color: #1a1a2e;
+            border-bottom: 2px solid #d4a574;
+            padding-bottom: 15px;
         }
 
+        /* Form Groups */
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: 25px;
         }
-
         .form-group label {
             display: block;
-            margin-bottom: 8px;
-            font-weight: 500;
-            color: #555;
+            margin-bottom: 10px;
+            font-weight: 600;
+            color: #2d2d2d;
+            font-size: 13px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
         }
-
-        .form-group input,
-        .form-group textarea {
+        .form-group input, .form-group textarea {
             width: 100%;
-            max-width: 800px;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            font-size: 14px;
+            padding: 14px 18px;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 15px;
+            font-family: 'Inter', sans-serif;
+            transition: all 0.3s;
         }
-
+        .form-group input:focus, .form-group textarea:focus {
+            outline: none;
+            border-color: #d4a574;
+            box-shadow: 0 0 0 3px rgba(212,165,116,0.1);
+        }
         .form-group textarea {
             resize: vertical;
             min-height: 300px;
-            font-family: inherit;
+            line-height: 1.6;
         }
 
+        /* Luxury Buttons */
         .btn {
-            padding: 10px 20px;
+            padding: 14px 32px;
             border: none;
-            border-radius: 4px;
+            border-radius: 25px;
             cursor: pointer;
-            font-size: 14px;
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: all 0.3s;
         }
-
         .btn-primary {
-            background: #3498db;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
             color: white;
+            box-shadow: 0 6px 20px rgba(26,26,46,0.3);
         }
-
         .btn-primary:hover {
-            background: #2980b9;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(26,26,46,0.4);
+        }
+        .btn-primary:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
         }
 
-        .btn-danger {
-            background: #e74c3c;
-            color: white;
-        }
-
+        /* Info Box */
         .info-box {
-            background: #e7f3ff;
-            border-left: 4px solid #3498db;
-            padding: 15px;
-            margin: 20px 0;
-            border-radius: 4px;
+            background: linear-gradient(135deg, #e7f3ff 0%, #d4edff 100%);
+            border-left: 4px solid #d4a574;
+            padding: 20px;
+            margin: 25px 0;
+            border-radius: 8px;
+        }
+        .info-box p {
+            margin: 8px 0;
+            color: #2d2d2d;
         }
 
+        /* Success Message */
         .success-msg {
-            background: #d4edda;
+            background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
             color: #155724;
-            padding: 12px;
-            border-radius: 4px;
-            margin-bottom: 15px;
+            padding: 16px 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
             display: none;
+            font-weight: 500;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
         }
+        .success-msg.show { display: block; animation: slideDown 0.3s; }
+        @keyframes slideDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
 
-        .success-msg.show {
-            display: block;
-            animation: fadeIn 0.3s;
+        /* Mobile Menu */
+        .menu-toggle {
+            display: none;
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1001;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: white;
+            border: none;
+            padding: 12px 18px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 20px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
         }
+        .sidebar-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 999;
+        }
+        .sidebar-overlay.show { display: block; }
 
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .menu-toggle { display: block; }
+            .sidebar {
+                position: fixed;
+                left: -280px;
+                transition: left 0.3s ease;
+                z-index: 1000;
+            }
+            .sidebar.show { left: 0; }
+            .main-content {
+                margin-left: 0;
+                padding: 20px;
+            }
+            .header {
+                flex-direction: column;
+                gap: 15px;
+                align-items: flex-start;
+                padding: 20px;
+            }
+            .header h1 { font-size: 24px; }
+            .tabs {
+                overflow-x: auto;
+                padding: 15px;
+            }
+            .tab {
+                padding: 10px 20px;
+                font-size: 12px;
+            }
+            .settings-section {
+                padding: 25px 20px;
+            }
+            .settings-section h2 { font-size: 22px; }
         }
-        /* ===== MOBILE RESPONSIVE - START ===== */
-@media (max-width: 768px) {
-    .sidebar, .admin-sidebar {
-        position: fixed;
-        left: -250px;
-        transition: left 0.3s ease;
-        z-index: 1000;
-    }
-    .sidebar.show, .admin-sidebar.show {
-        left: 0;
-    }
-    .main-content, .admin-main {
-        margin-left: 0 !important;
-        padding: 10px;
-    }
-    .header, .admin-header {
-        flex-direction: column;
-        gap: 15px;
-        align-items: flex-start;
-        padding: 15px;
-    }
-    .header h1, .admin-header h1 {
-        font-size: 22px;
-    }
-    .stats, .stats-grid {
-        grid-template-columns: 1fr !important;
-        gap: 15px;
-    }
-    .stat-card {
-        padding: 15px;
-    }
-    .stat-card .value, .stat-value {
-        font-size: 24px;
-    }
-    .controls {
-        flex-direction: column;
-        padding: 15px;
-    }
-    .controls input[type="text"], .controls select {
-        width: 100%;
-    }
-    .controls .btn {
-        width: 100%;
-    }
-    .tabs {
-        overflow-x: auto;
-        padding: 10px;
-        gap: 8px;
-    }
-    .tab {
-        padding: 8px 16px;
-        font-size: 13px;
-        flex-shrink: 0;
-    }
-    .table-wrapper {
-        padding: 10px;
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
-    }
-    table {
-        min-width: 800px;
-        font-size: 13px;
-    }
-    th, td {
-        padding: 8px 6px;
-        white-space: nowrap;
-    }
-    .btn-view, .btn-edit, .btn-delete, .btn-confirm, .btn-cancel {
-        padding: 4px 8px;
-        font-size: 11px;
-    }
-    .modal-content {
-        width: 95%;
-        max-width: 95%;
-        padding: 20px;
-        max-height: 95vh;
-    }
-    .modal-header h2 {
-        font-size: 18px;
-    }
-    .form-group {
-        margin-bottom: 15px;
-    }
-    .form-group label {
-        font-size: 14px;
-    }
-    .form-group input, .form-group select, .form-group textarea {
-        font-size: 14px;
-        padding: 8px;
-    }
-    .settings-section {
-        padding: 15px;
-    }
-    .settings-section h2 {
-        font-size: 20px;
-    }
-    .order-details h3 {
-        font-size: 16px;
-        margin-top: 15px;
-    }
-    .order-item {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 10px;
-    }
-    .order-item img {
-        width: 80px;
-        height: 80px;
-    }
-    .info-row {
-        flex-direction: column;
-        gap: 5px;
-        padding: 6px 0;
-    }
-    .status-buttons {
-        flex-direction: column;
-    }
-    .status-btn {
-        width: 100%;
-        padding: 12px 16px;
-    }
-    .images-preview-container {
-        gap: 8px;
-    }
-    .preview-image-wrapper {
-        width: 80px;
-        height: 80px;
-    }
-    .pagination {
-        padding: 15px 10px;
-    }
-    .pagination button {
-        padding: 8px 12px;
-        font-size: 13px;
-    }
-    .admin-user {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 10px;
-        width: 100%;
-    }
-    .btn-logout {
-        width: 100%;
-    }
-    .info-box {
-        padding: 12px;
-        font-size: 13px;
-    }
-}
-.menu-toggle {
-    display: none;
-    position: fixed;
-    top: 15px;
-    left: 15px;
-    z-index: 1001;
-    background: #3498db;
-    color: white;
-    border: none;
-    padding: 10px 15px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 20px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-}
-@media (max-width: 768px) {
-    .menu-toggle {
-        display: block;
-    }
-}
-.sidebar-overlay {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0,0,0,0.5);
-    z-index: 999;
-}
-.sidebar-overlay.show {
-    display: block;
-}
-/* ===== MOBILE RESPONSIVE - END ===== */
     </style>
 </head>
 <body>
+    <button class="menu-toggle" id="menuToggle">☰</button>
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
     <div class="container">
-        <div class="sidebar">
-            <h2>      IBREES-LIL-HUZAIFA</h2>
+        <div class="sidebar" id="sidebar">
+            <h2>BLOOME BY NAYAB</h2>
             <a href="dashboard.html">📊 Dashboard</a>
             <a href="products.html">📦 Products</a>
             <a href="orders.html">🛒 Orders</a>
@@ -395,15 +297,14 @@
                 <span id="admin-name">Admin</span>
             </div>
 
-            <!-- Tabs -->
             <div class="tabs">
                 <button class="tab active" onclick="switchTab('store')">Store Info</button>
-                <button class="tab" onclick="switchTab('shipping')">Shipping Info</button>
-                <button class="tab" onclick="switchTab('returns')">Returns Policy</button>
+                <button class="tab" onclick="switchTab('shipping')">Shipping</button>
+                <button class="tab" onclick="switchTab('returns')">Returns</button>
                 <button class="tab" onclick="switchTab('faq')">FAQ</button>
-                <button class="tab" onclick="switchTab('terms')">Terms & Conditions</button>
-                <button class="tab" onclick="switchTab('privacy')">Privacy Policy</button>
-                <button class="tab" onclick="switchTab('account')">Admin Account</button>
+                <button class="tab" onclick="switchTab('terms')">Terms</button>
+                <button class="tab" onclick="switchTab('privacy')">Privacy</button>
+                <button class="tab" onclick="switchTab('account')">Account</button>
             </div>
 
             <div id="success-message" class="success-msg"></div>
@@ -495,25 +396,29 @@
                     <label>Confirm Password</label>
                     <input type="password" id="confirm-password" placeholder="Confirm new password">
                 </div>
-                <button class="btn btn-primary" id="change-password-btn" onclick="changePassword(this)">Update Password</button>
+                <button class="btn btn-primary" onclick="changePassword(this)">Update Password</button>
             </div>
         </div>
     </div>
 
     <script>
-        // Default content
         const defaults = {
             storeName: 'BLOOME BY NAYAB',
-            storeEmail: 'support@ibreeslilutoor.com',
-            storePhone: '+92 300 1234567',
+            storeEmail: 'huzaifamadani95@gmail.com',
+            storePhone: '+92 334 8818200',
             storeAddress: 'Peshawar, Khyber Pakhtunkhwa, Pakistan',
             shipping: `We offer shipping across Pakistan.
 
 Delivery Time: 3-5 business days
-Shipping Charges: Rs 200 (Free for orders above Rs 5000)
+Shipping Charges:
+• Rs 500-1,999: Rs 250
+• Rs 2,000-2,999: Rs 350
+• Rs 3,000-4,999: Rs 500
+• Rs 5,000+: FREE 🎉
+
 Tracking: Available for all orders
 
-For international shipping, please contact us at support@ibreeslilutoor.com`,
+For questions, contact us at huzaifamadani95@gmail.com`,
             returns: `Return & Exchange Policy
 
 We accept returns within 7 days of delivery.
@@ -523,38 +428,34 @@ Conditions:
 - Return shipping costs are borne by the customer
 - Refund will be processed within 5-7 business days
 
-To initiate a return, contact us at support@ibreeslilutoor.com`,
+To initiate a return, contact us at huzaifamadani95@gmail.com`,
             faq: `Frequently Asked Questions
 
 Q: How do I track my order?
 A: You will receive a tracking link via email after your order is confirmed.
 
 Q: What payment methods do you accept?
-A: We accept Cash on Delivery (COD) and bank transfers.
+A: We accept Cash on Delivery (COD) for all orders.
 
 Q: Do you ship internationally?
-A: Currently, we only ship within Pakistan. Contact us for international orders.
+A: Currently, we only ship within Pakistan.
 
-Q: How can I contact customer support?
-A: Email us at support@ibreeslilutoor.com or call +92 300 1234567`,
+Q: What is the minimum order amount?
+A: Minimum order amount is Rs 500.`,
             terms: `Terms & Conditions
 
-By using our website and services, you agree to these terms:
+By using BLOOME BY NAYAB website and services, you agree to these terms.
 
-1. Product Information: We strive for accuracy but cannot guarantee all product details are error-free.
-
-2. Pricing: All prices are in Pakistani Rupees (PKR) and subject to change without notice.
-
+1. Product Information: We strive for accuracy in all product descriptions.
+2. Pricing: All prices are in Pakistani Rupees (PKR) and may change without notice.
 3. Orders: All orders are subject to availability and confirmation.
+4. Payment: Cash on Delivery only.
+5. Delivery: 3-5 business days across Pakistan.
 
-4. Payment: Payment must be completed as per selected method before delivery.
-
-5. Liability: We are not liable for delays due to circumstances beyond our control.
-
-For questions, contact support@ibreeslilutoor.com`,
+For questions, contact us at huzaifamadani95@gmail.com`,
             privacy: `Privacy Policy
 
-We respect your privacy and are committed to protecting your personal information.
+BLOOME BY NAYAB respects your privacy and protects your personal information.
 
 Information We Collect:
 - Name, email, phone number, and shipping address
@@ -562,31 +463,25 @@ Information We Collect:
 
 How We Use Your Information:
 - To process and fulfill your orders
-- To send order updates and promotional emails
-- To improve our services
-
-Data Security:
-We implement security measures to protect your personal information.
+- To send order updates and tracking information
+- To improve our products and services
 
 Your Rights:
 You can request to view, update, or delete your personal data by contacting us.
 
-Contact: support@ibreeslilutoor.com`
+Contact: huzaifamadani95@gmail.com`
         };
 
         function logout() {
             if (confirm('Logout?')) {
                 localStorage.removeItem('admin');
-                window.location.href = '/admin/login.html';
+                window.location.href = 'login.html';
             }
         }
 
         function switchTab(tab) {
-            // Update tabs
             document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
             event.target.classList.add('active');
-
-            // Update sections
             document.querySelectorAll('.settings-section').forEach(s => s.classList.remove('active'));
             document.getElementById(tab + '-section').classList.add('active');
         }
@@ -595,7 +490,8 @@ Contact: support@ibreeslilutoor.com`
             const msg = document.getElementById('success-message');
             msg.textContent = message;
             msg.classList.add('show');
-            setTimeout(() => msg.classList.remove('show'), 3000);
+            setTimeout(() => msg.classList.remove('show'), 5000);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
         function saveStoreInfo() {
@@ -605,18 +501,15 @@ Contact: support@ibreeslilutoor.com`
                 phone: document.getElementById('store-phone').value,
                 address: document.getElementById('store-address').value
             };
-            // Save locally and to server
             localStorage.setItem('storeSettings', JSON.stringify(settings));
             fetch('/api/admin/settings', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ storeSettings: settings })
             }).then(res => res.json()).then(data => {
-                if (data.success) showSuccess('✅ Store information saved successfully!');
-                else showSuccess('⚠️ Saved locally; server save failed');
-            }).catch(() => {
-                showSuccess('⚠️ Saved locally; server save failed');
-            });
+                if (data.success) showSuccess('✅ Store information saved to MongoDB successfully!');
+                else showSuccess('⚠️ Saved locally; MongoDB save failed');
+            }).catch(() => showSuccess('⚠️ Saved locally; MongoDB connection failed'));
         }
 
         function saveShippingInfo() {
@@ -627,9 +520,9 @@ Contact: support@ibreeslilutoor.com`
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ shippingPolicy: val })
             }).then(res => res.json()).then(data => {
-                if (data.success) showSuccess('✅ Shipping information saved successfully!');
-                else showSuccess('⚠️ Saved locally; server save failed');
-            }).catch(() => showSuccess('⚠️ Saved locally; server save failed'));
+                if (data.success) showSuccess('✅ Shipping information saved to MongoDB!');
+                else showSuccess('⚠️ Saved locally; MongoDB save failed');
+            }).catch(() => showSuccess('⚠️ Saved locally; MongoDB connection failed'));
         }
 
         function saveReturnsInfo() {
@@ -640,9 +533,9 @@ Contact: support@ibreeslilutoor.com`
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ returnsPolicy: val })
             }).then(res => res.json()).then(data => {
-                if (data.success) showSuccess('✅ Returns policy saved successfully!');
-                else showSuccess('⚠️ Saved locally; server save failed');
-            }).catch(() => showSuccess('⚠️ Saved locally; server save failed'));
+                if (data.success) showSuccess('✅ Returns policy saved to MongoDB!');
+                else showSuccess('⚠️ Saved locally; MongoDB save failed');
+            }).catch(() => showSuccess('⚠️ Saved locally; MongoDB connection failed'));
         }
 
         function saveFAQ() {
@@ -653,9 +546,9 @@ Contact: support@ibreeslilutoor.com`
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ faqContent: val })
             }).then(res => res.json()).then(data => {
-                if (data.success) showSuccess('✅ FAQ saved successfully!');
-                else showSuccess('⚠️ Saved locally; server save failed');
-            }).catch(() => showSuccess('⚠️ Saved locally; server save failed'));
+                if (data.success) showSuccess('✅ FAQ saved to MongoDB!');
+                else showSuccess('⚠️ Saved locally; MongoDB save failed');
+            }).catch(() => showSuccess('⚠️ Saved locally; MongoDB connection failed'));
         }
 
         function saveTerms() {
@@ -666,9 +559,9 @@ Contact: support@ibreeslilutoor.com`
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ termsConditions: val })
             }).then(res => res.json()).then(data => {
-                if (data.success) showSuccess('✅ Terms & Conditions saved successfully!');
-                else showSuccess('⚠️ Saved locally; server save failed');
-            }).catch(() => showSuccess('⚠️ Saved locally; server save failed'));
+                if (data.success) showSuccess('✅ Terms saved to MongoDB!');
+                else showSuccess('⚠️ Saved locally; MongoDB save failed');
+            }).catch(() => showSuccess('⚠️ Saved locally; MongoDB connection failed'));
         }
 
         function savePrivacy() {
@@ -679,83 +572,42 @@ Contact: support@ibreeslilutoor.com`
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ privacyPolicy: val })
             }).then(res => res.json()).then(data => {
-                if (data.success) showSuccess('✅ Privacy Policy saved successfully!');
-                else showSuccess('⚠️ Saved locally; server save failed');
-            }).catch(() => showSuccess('⚠️ Saved locally; server save failed'));
+                if (data.success) showSuccess('✅ Privacy Policy saved to MongoDB!');
+                else showSuccess('⚠️ Saved locally; MongoDB save failed');
+            }).catch(() => showSuccess('⚠️ Saved locally; MongoDB connection failed'));
         }
 
-        function changePassword(buttonElement) {
+        function changePassword(btn) {
             const newPass = document.getElementById('new-password').value.trim();
             const confirmPass = document.getElementById('confirm-password').value.trim();
-            
-            if (!newPass || !confirmPass) {
-                alert('❌ Please enter both password fields');
-                return;
-            }
-            
-            if (newPass !== confirmPass) {
-                alert('❌ Passwords do not match');
-                return;
-            }
-            
-            if (newPass.length < 6) {
-                alert('❌ Password must be at least 6 characters long');
-                return;
-            }
-
-            const admin = JSON.parse(localStorage.getItem('admin') || '{}');
-            if (!admin || !admin.username) {
-                alert('❌ Not logged in');
-                return;
-            }
-
-            const currentPassword = prompt('Enter your current password to confirm:');
-            if (!currentPassword) {
-                alert('❌ Current password required');
-                return;
-            }
-
-            // Disable button and show loading state
-            const originalText = buttonElement.textContent;
-            buttonElement.textContent = 'Updating...';
-            buttonElement.disabled = true;
-
+            if (!newPass || !confirmPass) { alert('❌ Please enter both fields'); return; }
+            if (newPass !== confirmPass) { alert('❌ Passwords do not match'); return; }
+            if (newPass.length < 6) { alert('❌ Password must be at least 6 characters'); return; }
+            const currentPass = prompt('Enter current password:');
+            if (!currentPass) return;
+            btn.disabled = true;
+            btn.textContent = 'Updating...';
             fetch('/api/auth/change-password', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    email: admin.username,
-                    currentPassword: currentPassword,
-                    newPassword: newPass
-                })
-            })
-            .then(res => res.json())
-            .then(data => {
-                buttonElement.textContent = originalText;
-                buttonElement.disabled = false;
-
+                body: JSON.stringify({ email: 'huzaifamadani95@gmail.com', currentPassword: currentPass, newPassword: newPass })
+            }).then(res => res.json()).then(data => {
+                btn.disabled = false;
+                btn.textContent = 'Update Password';
                 if (data.success) {
-                    showSuccess('✅ Password updated successfully!');
+                    showSuccess('✅ Password updated! Please login again.');
                     document.getElementById('new-password').value = '';
                     document.getElementById('confirm-password').value = '';
-                    alert('✅ Password updated successfully! Please login again with your new password.');
-                    setTimeout(() => {
-                        logout();
-                    }, 1000);
-                } else {
-                    alert('❌ ' + (data.error || 'Failed to update password'));
-                }
-            })
-            .catch(error => {
-                buttonElement.textContent = originalText;
-                buttonElement.disabled = false;
-                alert('❌ Error: ' + error.message);
+                    setTimeout(logout, 1500);
+                } else alert('❌ ' + (data.error || 'Failed'));
+            }).catch(() => {
+                btn.disabled = false;
+                btn.textContent = 'Update Password';
+                alert('❌ Connection error');
             });
         }
 
-        // Load saved settings on page load
         function loadSettings() {
-            // Try server first, fall back to localStorage
             fetch('/api/admin/settings').then(r => r.json()).then(data => {
                 if (data && data.success && data.settings) {
                     const s = data.settings;
@@ -764,99 +616,64 @@ Contact: support@ibreeslilutoor.com`
                     document.getElementById('store-email').value = store.email || defaults.storeEmail;
                     document.getElementById('store-phone').value = store.phone || defaults.storePhone;
                     document.getElementById('store-address').value = store.address || defaults.storeAddress;
-
                     document.getElementById('shipping-content').value = s.shippingPolicy || defaults.shipping;
                     document.getElementById('returns-content').value = s.returnsPolicy || defaults.returns;
                     document.getElementById('faq-content').value = s.faqContent || defaults.faq;
                     document.getElementById('terms-content').value = s.termsConditions || defaults.terms;
                     document.getElementById('privacy-content').value = s.privacyPolicy || defaults.privacy;
-                    // Mirror into localStorage for legacy pages
                     localStorage.setItem('storeSettings', JSON.stringify(store));
                     localStorage.setItem('shippingPolicy', s.shippingPolicy || '');
                     localStorage.setItem('returnsPolicy', s.returnsPolicy || '');
                     localStorage.setItem('faqContent', s.faqContent || '');
                     localStorage.setItem('termsConditions', s.termsConditions || '');
                     localStorage.setItem('privacyPolicy', s.privacyPolicy || '');
-                    return;
-                }
-
-                // fallback to localStorage
-                const storeSettings = JSON.parse(localStorage.getItem('storeSettings') || '{}');
-                document.getElementById('store-name').value = storeSettings.name || defaults.storeName;
-                document.getElementById('store-email').value = storeSettings.email || defaults.storeEmail;
-                document.getElementById('store-phone').value = storeSettings.phone || defaults.storePhone;
-                document.getElementById('store-address').value = storeSettings.address || defaults.storeAddress;
-
-                document.getElementById('shipping-content').value = localStorage.getItem('shippingPolicy') || defaults.shipping;
-                document.getElementById('returns-content').value = localStorage.getItem('returnsPolicy') || defaults.returns;
-                document.getElementById('faq-content').value = localStorage.getItem('faqContent') || defaults.faq;
-                document.getElementById('terms-content').value = localStorage.getItem('termsConditions') || defaults.terms;
-                document.getElementById('privacy-content').value = localStorage.getItem('privacyPolicy') || defaults.privacy;
-            }).catch(() => {
-                const storeSettings = JSON.parse(localStorage.getItem('storeSettings') || '{}');
-                document.getElementById('store-name').value = storeSettings.name || defaults.storeName;
-                document.getElementById('store-email').value = storeSettings.email || defaults.storeEmail;
-                document.getElementById('store-phone').value = storeSettings.phone || defaults.storePhone;
-                document.getElementById('store-address').value = storeSettings.address || defaults.storeAddress;
-
-                document.getElementById('shipping-content').value = localStorage.getItem('shippingPolicy') || defaults.shipping;
-                document.getElementById('returns-content').value = localStorage.getItem('returnsPolicy') || defaults.returns;
-                document.getElementById('faq-content').value = localStorage.getItem('faqContent') || defaults.faq;
-                document.getElementById('terms-content').value = localStorage.getItem('termsConditions') || defaults.terms;
-                document.getElementById('privacy-content').value = localStorage.getItem('privacyPolicy') || defaults.privacy;
-            });
-
-            // Admin name
-            try {
-                const admin = JSON.parse(localStorage.getItem('admin'));
-                if (admin && admin.username) {
-                    document.getElementById('admin-name').textContent = admin.username;
-                }
-            } catch (e) {}
+                } else loadFromLocalStorage();
+            }).catch(loadFromLocalStorage);
         }
 
-        // Initialize
-        loadSettings();
-    </script>
-    <script>
-/* ===== MOBILE MENU - START ===== */
-document.addEventListener('DOMContentLoaded', function() {
-    const menuToggle = document.createElement('button');
-    menuToggle.className = 'menu-toggle';
-    menuToggle.innerHTML = '☰';
-    menuToggle.setAttribute('aria-label', 'Toggle Menu');
-    document.body.insertBefore(menuToggle, document.body.firstChild);
-    
-    const overlay = document.createElement('div');
-    overlay.className = 'sidebar-overlay';
-    document.body.appendChild(overlay);
-    
-    const sidebar = document.querySelector('.sidebar') || document.querySelector('.admin-sidebar');
-    
-    menuToggle.addEventListener('click', function() {
-        sidebar.classList.toggle('show');
-        overlay.classList.toggle('show');
-        menuToggle.innerHTML = sidebar.classList.contains('show') ? '✕' : '☰';
-    });
-    
-    overlay.addEventListener('click', function() {
-        sidebar.classList.remove('show');
-        overlay.classList.remove('show');
-        menuToggle.innerHTML = '☰';
-    });
-    
-    const sidebarLinks = sidebar.querySelectorAll('a');
-    sidebarLinks.forEach(link => {
-        link.addEventListener('click', function() {
-            if (window.innerWidth <= 768) {
+        function loadFromLocalStorage() {
+            const storeSettings = JSON.parse(localStorage.getItem('storeSettings') || '{}');
+            document.getElementById('store-name').value = storeSettings.name || defaults.storeName;
+            document.getElementById('store-email').value = storeSettings.email || defaults.storeEmail;
+            document.getElementById('store-phone').value = storeSettings.phone || defaults.storePhone;
+            document.getElementById('store-address').value = storeSettings.address || defaults.storeAddress;
+            document.getElementById('shipping-content').value = localStorage.getItem('shippingPolicy') || defaults.shipping;
+            document.getElementById('returns-content').value = localStorage.getItem('returnsPolicy') || defaults.returns;
+            document.getElementById('faq-content').value = localStorage.getItem('faqContent') || defaults.faq;
+            document.getElementById('terms-content').value = localStorage.getItem('termsConditions') || defaults.terms;
+            document.getElementById('privacy-content').value = localStorage.getItem('privacyPolicy') || defaults.privacy;
+        }
+
+        // Mobile menu
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuToggle = document.getElementById('menuToggle');
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('sidebarOverlay');
+            
+            menuToggle.addEventListener('click', () => {
+                sidebar.classList.toggle('show');
+                overlay.classList.toggle('show');
+                menuToggle.textContent = sidebar.classList.contains('show') ? '✕' : '☰';
+            });
+            
+            overlay.addEventListener('click', () => {
                 sidebar.classList.remove('show');
                 overlay.classList.remove('show');
-                menuToggle.innerHTML = '☰';
-            }
+                menuToggle.textContent = '☰';
+            });
+
+            sidebar.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    if (window.innerWidth <= 768) {
+                        sidebar.classList.remove('show');
+                        overlay.classList.remove('show');
+                        menuToggle.textContent = '☰';
+                    }
+                });
+            });
+
+            loadSettings();
         });
-    });
-});
-/* ===== MOBILE MENU - END ===== */
-</script>
+    </script>
 </body>
 </html>
