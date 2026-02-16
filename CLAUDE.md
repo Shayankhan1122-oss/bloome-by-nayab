@@ -162,7 +162,7 @@ When setting up for production, ensure these are configured:
 **Testing Admin**:
 - Login at `/admin/login.html` with credentials:
   - Email: `shayanihtiram443@gmail.com`
-  - Password: `636363`
+  - Password: `Pass1122@`
 - Access dashboard at `/admin/dashboard.html`
 
 ### Notes for Future Development
