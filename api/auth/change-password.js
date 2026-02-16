@@ -30,7 +30,7 @@ export default async function handler(req, res) {
         }
 
         // CRITICAL: Only admin email allowed
-        const ADMIN_EMAIL = 'huzaifamadani95@gmail.com';
+        const ADMIN_EMAIL = 'shayanihtiram443@gmail.com';
         const ADMIN_PASSWORD = 'Pass1122@'; // Current password
 
         if (email !== ADMIN_EMAIL) {

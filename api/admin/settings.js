@@ -43,7 +43,7 @@ export default async function handler(req, res) {
                     _id: 'store_settings',
                     storeSettings: {
                         name: 'BLOOME BY NAYAB',
-                        email: 'huzaifamadani95@gmail.com',
+                        email: 'shayanihtiram443@gmail.com',
                         phone: '+92 334 8818200',
                         address: 'Peshawar, Khyber Pakhtunkhwa, Pakistan'
                     },
@@ -58,7 +58,7 @@ Shipping Charges:
 
 Tracking: Available for all orders
 
-For questions, contact us at huzaifamadani95@gmail.com`,
+For questions, contact us at shayanihtiram443@gmail.com`,
                     returnsPolicy: `Return & Exchange Policy
 
 We accept returns within 7 days of delivery.
@@ -68,7 +68,7 @@ Conditions:
 - Return shipping costs are borne by the customer
 - Refund will be processed within 5-7 business days
 
-To initiate a return, contact us at huzaifamadani95@gmail.com`,
+To initiate a return, contact us at shayanihtiram443@gmail.com`,
                     faqContent: `Frequently Asked Questions
 
 Q: How do I track my order?
@@ -92,7 +92,7 @@ By using BLOOME BY NAYAB website and services, you agree to these terms.
 4. Payment: Cash on Delivery only.
 5. Delivery: 3-5 business days across Pakistan.
 
-For questions, contact us at huzaifamadani95@gmail.com`,
+For questions, contact us at shayanihtiram443@gmail.com`,
                     privacyPolicy: `Privacy Policy
 
 BLOOME BY NAYAB respects your privacy and protects your personal information.
@@ -109,7 +109,7 @@ How We Use Your Information:
 Your Rights:
 You can request to view, update, or delete your personal data by contacting us.
 
-Contact: huzaifamadani95@gmail.com`,
+Contact: shayanihtiram443@gmail.com`,
                     updatedAt: new Date().toISOString()
                 };
                 
