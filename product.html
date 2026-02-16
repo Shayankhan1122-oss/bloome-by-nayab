@@ -564,8 +564,8 @@
                         <span class="current-price">Rs 0.00</span>
                     </div>
                     <div class="stock-status">
-                        <span class="in-stock">In Stock</span>
-                        <span class="items-left">Only 5 left in stock</span>
+                        <span class="in-stock" id="stock-status">Checking stock...</span>
+                        <span class="items-left" id="items-left"></span>
                     </div>
                     <p class="short-description">
                         Experience luxury with our premium product. Crafted with attention to detail and quality.
@@ -607,7 +607,36 @@
             </div>
         </div>
     </section>
-    
+
+    <!-- Footer -->
+    <footer class="footer" style="background: linear-gradient(180deg, #1a1a2e 0%, #0f0f1e 100%); padding: 60px 0 30px; color: white;">
+        <div class="container">
+            <div class="footer-content" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 40px; margin-bottom: 40px;">
+                <div class="footer-section">
+                    <h3 style="font-family: 'Bodoni Moda', serif; color: #d4a574; font-size: 24px; margin-bottom: 20px;">BLOOME BY NAYAB</h3>
+                    <p style="font-size: 14px; line-height: 1.8; color: rgba(255,255,255,0.7);">Your destination for luxury beauty and lifestyle products.</p>
+                </div>
+                <div class="footer-section">
+                    <h4 style="font-family: 'Inter', sans-serif; font-size: 14px; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 20px; color: #d4a574;">Quick Links</h4>
+                    <ul style="list-style: none; padding: 0; margin: 0;">
+                        <li style="margin-bottom: 10px;"><a href="index.html" style="color: rgba(255,255,255,0.7); text-decoration: none; font-size: 14px;">Home</a></li>
+                        <li style="margin-bottom: 10px;"><a href="category.html" style="color: rgba(255,255,255,0.7); text-decoration: none; font-size: 14px;">Collections</a></li>
+                        <li style="margin-bottom: 10px;"><a href="cart.html" style="color: rgba(255,255,255,0.7); text-decoration: none; font-size: 14px;">Cart</a></li>
+                        <li style="margin-bottom: 10px;"><a href="track-order.html" style="color: rgba(255,255,255,0.7); text-decoration: none; font-size: 14px;">Track Order</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4 style="font-family: 'Inter', sans-serif; font-size: 14px; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 20px; color: #d4a574;">Contact</h4>
+                    <p style="font-size: 14px; color: rgba(255,255,255,0.7); margin-bottom: 10px;">📧 huzaifamadani95@gmail.com</p>
+                    <p style="font-size: 14px; color: rgba(255,255,255,0.7);">📞 +92 334 8818200</p>
+                </div>
+            </div>
+            <div style="text-align: center; padding-top: 30px; border-top: 1px solid rgba(212,165,116,0.2);">
+                <p style="font-size: 13px; color: rgba(255,255,255,0.5);">&copy; 2026 BLOOME BY NAYAB. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
     <script>
         // Create twinkling particles
         function createParticles() {
@@ -625,5 +654,102 @@
     </script>
     <script src="js/main.js"></script>
     <script src="js/product-detail.js"></script>
+    <script>
+    // Fix product loading
+    document.addEventListener('DOMContentLoaded', async function() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const productId = urlParams.get('id');
+        
+        if (!productId) {
+            console.error('No product ID in URL');
+            return;
+        }
+        
+        try {
+            // Load product from API
+            const response = await fetch(`/api/products/${productId}`);
+            if (!response.ok) throw new Error('Product not found');
+            
+            const data = await response.json();
+            const product = data.product || data;
+            
+            // Update page
+            const titleEl = document.getElementById('product-title');
+            if (titleEl && product.name) titleEl.textContent = product.name;
+            const priceEl = document.querySelector('.current-price');
+            if (priceEl && typeof product.price === 'number') priceEl.textContent = `Rs ${product.price.toFixed(2)}`;
+            const descEl = document.querySelector('.short-description');
+            if (descEl) descEl.textContent = product.description || '';
+            
+            // Update images
+            const mainImage = document.getElementById('main-product-image');
+            const thumbnailGallery = document.querySelector('.thumbnail-gallery');
+            
+            if (product.images && product.images.length > 0) {
+                if (mainImage) mainImage.src = product.images[0];
+                
+                // Create thumbnails
+                if (thumbnailGallery) {
+                    thumbnailGallery.innerHTML = product.images.map((img, index) => `
+                        <div class="thumbnail ${index === 0 ? 'active' : ''}" data-src="${img}">
+                            <img src="${img}" alt="Image ${index + 1}">
+                        </div>
+                    `).join('');
+                    
+                    // Thumbnail click events
+                    thumbnailGallery.querySelectorAll('.thumbnail').forEach(thumb => {
+                        thumb.addEventListener('click', function() {
+                            thumbnailGallery.querySelectorAll('.thumbnail').forEach(t => t.classList.remove('active'));
+                            this.classList.add('active');
+                            if (mainImage) mainImage.src = this.dataset.src;
+                        });
+                    });
+                }
+            }
+            
+            // Update cart buttons
+            document.querySelectorAll('.add-to-cart, .btn-order-now').forEach(btn => {
+                btn.dataset.id = product._id || product.id || productId;
+            });
+            
+            // Update stock status
+            const stockStatus = document.getElementById('stock-status');
+            const itemsLeft = document.getElementById('items-left');
+            if (stockStatus) {
+                if (typeof product.stock === 'number') {
+                    if (product.stock > 0) {
+                        stockStatus.textContent = 'In Stock';
+                        stockStatus.style.color = '#28a745';
+                        if (itemsLeft) itemsLeft.textContent = product.stock < 10 ? `Only ${product.stock} left in stock` : '';
+                    } else {
+                        stockStatus.textContent = 'Out of Stock';
+                        stockStatus.style.color = '#e74c3c';
+                        document.querySelectorAll('.btn-primary').forEach(b => b.disabled = true);
+                    }
+                } else {
+                    // Fallback if no stock info
+                    stockStatus.textContent = product.inStock ? 'In Stock' : 'Out of Stock';
+                    if (!product.inStock) document.querySelectorAll('.btn-primary').forEach(b => b.disabled = true);
+                }
+            }
+        } catch (error) {
+            console.error('Error loading product:', error);
+            const info = document.querySelector('.product-info');
+            if (info) info.innerHTML = '<p>Product not found</p>';
+        }
+    });
+
+    // Quantity controls
+    document.addEventListener('click', function(e) {
+        if (e.target && e.target.classList.contains('minus')) {
+            const qty = document.getElementById('quantity');
+            if (qty && qty.value > 1) qty.value = parseInt(qty.value) - 1;
+        }
+        if (e.target && e.target.classList.contains('plus')) {
+            const qty = document.getElementById('quantity');
+            if (qty && qty.value < 10) qty.value = parseInt(qty.value) + 1;
+        }
+    });
+    </script>
 </body>
 </html>
