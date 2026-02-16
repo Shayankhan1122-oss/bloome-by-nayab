@@ -6,3 +6,21 @@
     }
   }
 }
+{
+  "version": 2,
+  "functions": {
+    "api/**/*.js": {
+      "maxDuration": 30
+    }
+  },
+  "routes": [
+    {
+      "src": "/api/auth/login",
+      "dest": "/api/auth/login.js"
+    },
+    {
+      "src": "/api/auth/change-password",
+      "dest": "/api/auth/change-password.js"
+    }
+  ]
+}
