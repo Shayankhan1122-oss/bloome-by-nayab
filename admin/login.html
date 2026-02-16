@@ -20,7 +20,6 @@
             overflow: hidden;
         }
         
-        /* Luxury particles background */
         body::before {
             content: '';
             position: absolute;
@@ -263,7 +262,7 @@
         </form>
         
         <div class="security-notice">
-            <strong>Security Notice:</strong> For your protection, you will be required to login each time you access the admin panel. Your session will not be saved.
+            <strong>Security Notice:</strong> For your protection, you will be required to login each time you access the admin panel.
         </div>
         
         <div class="login-options">
@@ -272,17 +271,18 @@
     </div>
 
     <script>
-        // STRICT AUTHENTICATION - NO SESSION PERSISTENCE
+        // CLIENT-SIDE AUTHENTICATION (No API needed)
         document.addEventListener('DOMContentLoaded', function() {
             const loginForm = document.getElementById('admin-login-form');
             const errorMessage = document.getElementById('error-message');
             const loginBtn = document.getElementById('login-btn');
             
-            // CRITICAL: Clear any existing admin session on page load
+            // Clear any existing sessions
             localStorage.removeItem('admin');
             sessionStorage.removeItem('admin');
+            sessionStorage.removeItem('adminSession');
             
-            loginForm.addEventListener('submit', async function(e) {
+            loginForm.addEventListener('submit', function(e) {
                 e.preventDefault();
                 
                 const email = document.getElementById('username').value.trim();
@@ -290,63 +290,38 @@
                 
                 hideError();
                 
-                // CLIENT-SIDE CHECK: Only authorized admin email
-                if (email !== 'shayanihtiram443@gmail.com') {
+                // ADMIN CREDENTIALS - CHANGE THESE!
+                const ADMIN_EMAIL = 'shayanihtiram443@gmail.com'; // Your admin email
+                const ADMIN_PASSWORD = 'Pass1122@'; // Your admin password
+                
+                // Verify email
+                if (email !== ADMIN_EMAIL) {
                     showError('⛔ Access Denied: Unauthorized email address');
                     return;
                 }
                 
-                if (!password) {
-                    showError('⛔ Password required');
+                // Verify password
+                if (password !== ADMIN_PASSWORD) {
+                    showError('⛔ Invalid credentials. Please check your password.');
                     return;
                 }
                 
-                // Show loading
+                // Success - login
                 const originalText = loginBtn.textContent;
-                loginBtn.textContent = 'Verifying...';
+                loginBtn.textContent = 'Logging in...';
                 loginBtn.disabled = true;
                 
-                try {
-                    const response = await fetch('/api/auth/login', {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ email, password })
-                    });
-                    
-                    const data = await response.json();
-                    
-                    if (response.ok && data.success) {
-                        // CRITICAL: Verify admin privileges
-                        if (data.user && 
-                            data.user.isAdmin === true && 
-                            data.user.email === 'shayanihtiram443@gmail.com') {
-                            
-                            // TEMPORARY SESSION - Only for current session
-                            // Will be cleared on page close or manual logout
-                            sessionStorage.setItem('adminSession', JSON.stringify({
-                                email: data.user.email,
-                                timestamp: new Date().toISOString(),
-                                isAdmin: true
-                            }));
-                            
-                            // Redirect to dashboard
-                            window.location.replace('dashboard.html');
-                        } else {
-                            showError('⛔ Access Denied: Admin privileges required');
-                            loginBtn.textContent = originalText;
-                            loginBtn.disabled = false;
-                        }
-                    } else {
-                        showError('⛔ ' + (data.error || 'Invalid credentials'));
-                        loginBtn.textContent = originalText;
-                        loginBtn.disabled = false;
-                    }
-                } catch (error) {
-                    console.error('Login error:', error);
-                    showError('⛔ Connection error. Please try again.');
-                    loginBtn.textContent = originalText;
-                    loginBtn.disabled = false;
-                }
+                // Create session (expires on browser close)
+                sessionStorage.setItem('adminSession', JSON.stringify({
+                    email: email,
+                    timestamp: new Date().toISOString(),
+                    isAdmin: true
+                }));
+                
+                // Redirect to dashboard
+                setTimeout(() => {
+                    window.location.replace('dashboard.html');
+                }, 500);
             });
             
             function showError(message) {
