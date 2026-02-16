@@ -10,6 +10,9 @@
     <link rel="stylesheet" href="css/product-detail.css">
 </head>
 <body>
+    <!-- Particles Background -->
+    <div class="particles" id="particles"></div>
+    
     <!-- Header Section -->
     <header class="header">
         <div class="top-header">
@@ -84,11 +87,11 @@
                         <div class="product-rating">
                             <span id="product-rating">4.5</span>
                             <div class="stars">
-                                <i class="fas fa-star" style="color: #ffc107;"></i>
-                                <i class="fas fa-star" style="color: #ffc107;"></i>
-                                <i class="fas fa-star" style="color: #ffc107;"></i>
-                                <i class="fas fa-star" style="color: #ffc107;"></i>
-                                <i class="fas fa-star-half-alt" style="color: #ffc107;"></i>
+                                <i class="fas fa-star" style="color: #d4a574;"></i>
+                                <i class="fas fa-star" style="color: #d4a574;"></i>
+                                <i class="fas fa-star" style="color: #d4a574;"></i>
+                                <i class="fas fa-star" style="color: #d4a574;"></i>
+                                <i class="fas fa-star-half-alt" style="color: #d4a574;"></i>
                                 <span>(128 reviews)</span>
                             </div>
                         </div>
@@ -433,6 +436,22 @@
                 }
             });
         })();
+    </script>
+    
+    <!-- Particle Animation Script -->
+    <script>
+        function createParticles() {
+            const container = document.getElementById('particles');
+            for (let i = 0; i < 50; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 3 + 's';
+                container.appendChild(particle);
+            }
+        }
+        createParticles();
     </script>
 </body>
 </html>
