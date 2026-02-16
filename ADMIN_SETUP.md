@@ -1,4 +1,4 @@
-# Admin Setup Guide for       IBREES-LIL-HUZAIFA
+# Admin Setup Guide for       BLOOME-BY-NAYAB
 
 ## Single Admin Feature
 

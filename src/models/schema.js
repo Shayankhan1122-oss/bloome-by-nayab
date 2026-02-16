@@ -1,4 +1,4 @@
-// Database Schema for       IBREES-LIL-HUZAIFA
+// Database Schema for       BLOOME-BY-NAYAB
 // This is a conceptual schema for MongoDB using Mongoose
 
 const mongoose = require('mongoose');

@@ -1,4 +1,4 @@
-// Admin Management for       IBREES-LIL-HUZAIFA
+// Admin Management for       BLOOME-BY-NAYAB
 // Ensures only one admin can be registered
 
 const User = require('../models/User');

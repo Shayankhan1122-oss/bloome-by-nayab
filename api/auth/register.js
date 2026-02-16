@@ -35,7 +35,7 @@ export default function handler(req, res) {
     }
 
     // Prevent registration with admin email
-    if (email === 'shayanihtiram443@gmail.com') {
+    if (email === 'bloomewebstore@gmail.com') {
         return res.status(403).json({ 
             success: false,
             error: 'This email is reserved' 

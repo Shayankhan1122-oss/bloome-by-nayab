@@ -1,4 +1,4 @@
-// Main JavaScript file for       IBREES-LIL-HUZAIFA
+// Main JavaScript file for       BLOOME-BY-NAYAB
 
 // Cart functionality
 let cart = JSON.parse(localStorage.getItem('cart')) || [];

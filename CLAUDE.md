@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This is **      IBREES-LIL-HUZAIFA** - a serverless e-commerce webstore deployed on Vercel with a **guest checkout-only** model (no customer registration required). The project uses vanilla JavaScript frontend with Vercel serverless functions for the backend API.
+This is **      BLOOME-BY-NAYAB** - a serverless e-commerce webstore deployed on Vercel with a **guest checkout-only** model (no customer registration required). The project uses vanilla JavaScript frontend with Vercel serverless functions for the backend API.
 
 ## Development Commands
 
@@ -161,7 +161,7 @@ When setting up for production, ensure these are configured:
 
 **Testing Admin**:
 - Login at `/admin/login.html` with credentials:
-  - Email: `shayanihtiram443@gmail.com`
+  - Email: `bloomewebstore@gmail.com`
   - Password: `Pass1122@`
 - Access dashboard at `/admin/dashboard.html`
 

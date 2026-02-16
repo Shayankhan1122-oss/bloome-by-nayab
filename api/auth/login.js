@@ -31,7 +31,7 @@ export default async function handler(req, res) {
         }
 
         // CRITICAL: Only this email is authorized as admin
-        const ADMIN_EMAIL = 'shayanihtiram443@gmail.com';
+        const ADMIN_EMAIL = 'bloomewebstore@gmail.com';
         const ADMIN_PASSWORD = 'Pass1122@'; // Your actual admin password
 
         // Verify credentials

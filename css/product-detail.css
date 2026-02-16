@@ -20,12 +20,13 @@
 .main-image {
     position: relative;
     overflow: hidden;
-    border-radius: 8px;
+    border-radius: 12px;
     height: 500px;
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #f8f9fa;
+    background: linear-gradient(135deg, #faf8f5 0%, #f5f2ed 100%);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
 }
 
 .main-image img {
@@ -48,11 +49,12 @@
     overflow: hidden;
     cursor: pointer;
     border: 2px solid transparent;
-    transition: border-color 0.3s ease;
+    transition: all 0.3s ease;
 }
 
 .thumbnail.active {
-    border-color: #007bff;
+    border-color: #d4a574;
+    box-shadow: 0 0 12px rgba(212,165,116,0.4);
 }
 
 .thumbnail img {
@@ -63,8 +65,11 @@
 
 /* Product Information Section */
 .product-info h1 {
+    font-family: 'Bodoni Moda', serif;
     font-size: 32px;
     margin-bottom: 15px;
+    color: #1a1a2e;
+    letter-spacing: 1px;
 }
 
 .product-meta {
@@ -108,7 +113,9 @@
 .current-price {
     font-size: 32px;
     font-weight: bold;
-    color: #007bff;
+    background: linear-gradient(135deg, #1a1a2e 0%, #d4a574 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 .original-price {
@@ -174,8 +181,8 @@
 .size-option,
 .color-option {
     padding: 10px 15px;
-    border: 1px solid #ced4da;
-    border-radius: 4px;
+    border: 2px solid #ddd;
+    border-radius: 6px;
     background: white;
     cursor: pointer;
     transition: all 0.3s ease;
@@ -183,9 +190,10 @@
 
 .size-option.active,
 .color-option.active {
-    border-color: #007bff;
-    background: #007bff;
-    color: white;
+    border-color: #d4a574;
+    background: rgba(212,165,116,0.1);
+    color: #d4a574;
+    box-shadow: 0 0 12px rgba(212,165,116,0.2);
 }
 
 .color-option {
@@ -272,22 +280,24 @@
 }
 
 .share-btn:hover {
-    background: #007bff;
+    background: linear-gradient(135deg, #d4a574 0%, #c9935e 100%);
     color: white;
-    border-color: #007bff;
+    border-color: #d4a574;
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba(212,165,116,0.3);
 }
 
 /* Product Tabs */
 .product-tabs {
     padding: 40px 0;
-    background-color: #f8f9fa;
+    background: linear-gradient(135deg, #faf8f5 0%, #f5f2ed 100%);
 }
 
 .tabs-container {
     background: white;
-    border-radius: 8px;
+    border-radius: 12px;
     overflow: hidden;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
 }
 
 .tab-nav {
@@ -303,12 +313,29 @@
 }
 
 .tab.active {
-    border-bottom: 3px solid #007bff;
-    color: #007bff;
+    border-bottom: 3px solid #d4a574;
+    color: #d4a574;
+    font-weight: 600;
 }
 
 .tab-content {
     padding: 30px;
+    font-family: 'Inter', sans-serif;
+}
+
+.tab-content h3 {
+    font-family: 'Bodoni Moda', serif;
+    color: #1a1a2e;
+    font-size: 24px;
+    margin-bottom: 20px;
+    letter-spacing: 1px;
+}
+
+.tab-content h4 {
+    font-family: 'Bodoni Moda', serif;
+    color: #1a1a2e;
+    margin-top: 20px;
+    margin-bottom: 10px;
 }
 
 .tab-pane {
@@ -352,7 +379,9 @@
 .overall-rating {
     font-size: 48px;
     font-weight: bold;
-    color: #007bff;
+    background: linear-gradient(135deg, #1a1a2e 0%, #d4a574 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 .stars-large {
@@ -378,7 +407,7 @@
 
 .rating-breakdown .fill {
     height: 100%;
-    background: #ffc107;
+    background: #d4a574;
 }
 
 .reviews-list .review {
@@ -433,7 +462,7 @@
 }
 
 .rating-input i.active {
-    color: #ffc107;
+    color: #d4a574;
 }
 
 /* Related Products */
@@ -442,9 +471,12 @@
 }
 
 .related-products h2 {
+    font-family: 'Bodoni Moda', serif;
     text-align: center;
     margin-bottom: 40px;
     font-size: 36px;
+    color: #1a1a2e;
+    letter-spacing: 1px;
 }
 
 /* Responsive Design */

@@ -1,4 +1,4 @@
-// Payment Integration for       IBREES-LIL-HUZAIFA
+// Payment Integration for       BLOOME-BY-NAYAB
 // This is a simplified version for demonstration purposes
 
 // Stripe payment integration

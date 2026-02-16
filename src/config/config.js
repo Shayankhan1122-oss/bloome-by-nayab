@@ -1,4 +1,4 @@
-// Configuration for       IBREES-LIL-HUZAIFA
+// Configuration for       BLOOME-BY-NAYAB
 
 // Environment variables
 require('dotenv').config();

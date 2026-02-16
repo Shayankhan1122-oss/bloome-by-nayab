@@ -1,4 +1,4 @@
-// Authentication Middleware for       IBREES-LIL-HUZAIFA
+// Authentication Middleware for       BLOOME-BY-NAYAB
 
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
