@@ -5,9 +5,474 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Product - BLOOME BY NAYAB</title>
     <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:wght@400;500;600;700;800&family=Cormorant:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="css/product-detail.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Cormorant', serif;
+            background: linear-gradient(135deg, #faf8f5 0%, #f5f2ed 100%);
+            color: #2d2d2d;
+            overflow-x: hidden;
+        }
+        
+        /* Twinkling Particles Background */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+        
+        .particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: #d4a574;
+            border-radius: 50%;
+            animation: twinkle 3s infinite;
+        }
+        
+        @keyframes twinkle {
+            0%, 100% { opacity: 0; transform: scale(0); }
+            50% { opacity: 1; transform: scale(1); }
+        }
+        
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            padding: 0;
+            position: relative;
+            z-index: 100;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+        }
+        
+        .top-header {
+            padding: 25px 0;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 30px;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo h1 a {
+            font-family: 'Bodoni Moda', serif;
+            font-size: 28px;
+            font-weight: 800;
+            letter-spacing: 3px;
+            color: #d4a574;
+            text-decoration: none;
+            text-transform: uppercase;
+        }
+        
+        .main-nav ul {
+            display: flex;
+            list-style: none;
+            gap: 50px;
+        }
+        
+        .main-nav a {
+            color: rgba(255,255,255,0.9);
+            text-decoration: none;
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+        
+        .main-nav a:hover {
+            color: #d4a574;
+        }
+        
+        .cart-icon {
+            position: relative;
+            color: white;
+            font-size: 22px;
+            transition: all 0.3s;
+        }
+        
+        .cart-icon:hover {
+            color: #d4a574;
+        }
+        
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -10px;
+            background: #d4a574;
+            color: #1a1a2e;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: 600;
+        }
+        
+        /* Breadcrumb */
+        .breadcrumb {
+            padding: 20px 0;
+            background: rgba(255,255,255,0.5);
+        }
+        
+        .breadcrumb ol {
+            display: flex;
+            list-style: none;
+            gap: 10px;
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+        }
+        
+        .breadcrumb a {
+            color: #1a1a2e;
+            text-decoration: none;
+        }
+        
+        .breadcrumb a:hover {
+            color: #d4a574;
+        }
+        
+        .breadcrumb li:not(:last-child)::after {
+            content: '/';
+            margin-left: 10px;
+            color: #999;
+        }
+        
+        /* Product Detail Section */
+        .product-detail {
+            padding: 80px 0;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .product-detail-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+        }
+        
+        /* Product Images - FIX FOR ZOOM */
+        .product-images {
+            position: sticky;
+            top: 100px;
+            height: fit-content;
+        }
+        
+        .main-image {
+            width: 100%;
+            height: 600px;
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .main-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain; /* FIXED: Was object-fit: cover causing zoom */
+            transition: transform 0.3s;
+        }
+        
+        .main-image:hover img {
+            transform: scale(1.05);
+        }
+        
+        .thumbnail-gallery {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+        }
+        
+        .thumbnail {
+            width: 100%;
+            height: 120px;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+        }
+        
+        .thumbnail:hover {
+            border-color: #d4a574;
+        }
+        
+        .thumbnail.active {
+            border-color: #d4a574;
+            box-shadow: 0 4px 15px rgba(212,165,116,0.3);
+        }
+        
+        .thumbnail img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain; /* FIXED: Was object-fit: cover */
+        }
+        
+        /* Product Info */
+        .product-info {
+            padding: 40px 0;
+        }
+        
+        #product-title {
+            font-family: 'Bodoni Moda', serif;
+            font-size: 48px;
+            font-weight: 700;
+            color: #1a1a2e;
+            margin-bottom: 20px;
+            letter-spacing: 1px;
+        }
+        
+        .product-meta {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 25px;
+            border-bottom: 1px solid rgba(212,165,116,0.3);
+        }
+        
+        .sku {
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+            color: #999;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+        
+        .product-rating {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .stars {
+            display: flex;
+            gap: 3px;
+        }
+        
+        .product-price {
+            margin-bottom: 25px;
+        }
+        
+        .current-price {
+            font-family: 'Bodoni Moda', serif;
+            font-size: 42px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #1a1a2e 0%, #d4a574 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .stock-status {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            margin-bottom: 30px;
+            padding: 15px;
+            background: linear-gradient(135deg, rgba(212,165,116,0.1) 0%, rgba(212,165,116,0.05) 100%);
+            border-radius: 8px;
+            border-left: 3px solid #d4a574;
+        }
+        
+        .in-stock {
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            color: #28a745;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .items-left {
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+            color: #e74c3c;
+        }
+        
+        .short-description {
+            font-size: 18px;
+            line-height: 1.8;
+            color: #666;
+            margin-bottom: 40px;
+        }
+        
+        /* Product Options */
+        .product-options {
+            margin-bottom: 40px;
+        }
+        
+        .option {
+            margin-bottom: 30px;
+        }
+        
+        .option h3 {
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+            color: #1a1a2e;
+        }
+        
+        .quantity-selector {
+            display: flex;
+            align-items: center;
+            gap: 0;
+            border: 2px solid #d4a574;
+            border-radius: 50px;
+            overflow: hidden;
+            width: fit-content;
+        }
+        
+        .quantity-btn {
+            background: white;
+            border: none;
+            width: 50px;
+            height: 50px;
+            font-size: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            color: #1a1a2e;
+            font-weight: 600;
+        }
+        
+        .quantity-btn:hover {
+            background: #d4a574;
+            color: white;
+        }
+        
+        #quantity {
+            width: 80px;
+            text-align: center;
+            border: none;
+            font-size: 18px;
+            font-weight: 600;
+            font-family: 'Inter', sans-serif;
+        }
+        
+        /* Action Buttons */
+        .product-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .btn {
+            padding: 18px 40px;
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.4s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: white;
+            box-shadow: 0 8px 25px rgba(26,26,46,0.3);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(26,26,46,0.4);
+        }
+        
+        .btn-secondary {
+            background: linear-gradient(135deg, #d4a574 0%, #c8955e 100%);
+            color: white;
+            box-shadow: 0 8px 25px rgba(212,165,116,0.3);
+        }
+        
+        .btn-secondary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(212,165,116,0.4);
+        }
+        
+        .share-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 10px;
+        }
+        
+        .share-btn {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            border: 2px solid #d4a574;
+            background: white;
+            color: #1a1a2e;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .share-btn:hover {
+            background: #d4a574;
+            color: white;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .product-detail-content {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            
+            .main-image {
+                height: 400px;
+            }
+            
+            #product-title {
+                font-size: 32px;
+            }
+            
+            .current-price {
+                font-size: 32px;
+            }
+        }
+    </style>
 </head>
 <body>
     <!-- Particles Background -->
@@ -47,8 +512,8 @@
             <nav aria-label="breadcrumb">
                 <ol>
                     <li><a href="index.html">Home</a></li>
-                    <li><a href="category.html?cat=fragrances">Fragrances</a></li>
-                    <li><span id="product-name">Premium Perfume</span></li>
+                    <li><a href="category.html">Collections</a></li>
+                    <li><span id="product-name">Product</span></li>
                 </ol>
             </nav>
         </div>
@@ -61,38 +526,37 @@
                 <!-- Product Images Section -->
                 <div class="product-images">
                     <div class="main-image">
-                        <img id="main-product-image" src="images/products/perfume1.jpg" alt="Premium Perfume" zoom-src="images/products/perfume1-large.jpg">
+                        <img id="main-product-image" src="images/products/perfume1.jpg" alt="Product">
                     </div>
                     <div class="thumbnail-gallery">
                         <div class="thumbnail active" data-src="images/products/perfume1.jpg">
-                            <img src="images/products/perfume1-thumb.jpg" alt="Thumbnail 1">
+                            <img src="images/products/perfume1.jpg" alt="Thumbnail 1">
                         </div>
                         <div class="thumbnail" data-src="images/products/perfume1-2.jpg">
-                            <img src="images/products/perfume1-2-thumb.jpg" alt="Thumbnail 2">
+                            <img src="images/products/perfume1-2.jpg" alt="Thumbnail 2">
                         </div>
                         <div class="thumbnail" data-src="images/products/perfume1-3.jpg">
-                            <img src="images/products/perfume1-3-thumb.jpg" alt="Thumbnail 3">
+                            <img src="images/products/perfume1-3.jpg" alt="Thumbnail 3">
                         </div>
                         <div class="thumbnail" data-src="images/products/perfume1-4.jpg">
-                            <img src="images/products/perfume1-4-thumb.jpg" alt="Thumbnail 4">
+                            <img src="images/products/perfume1-4.jpg" alt="Thumbnail 4">
                         </div>
                     </div>
                 </div>
 
                 <!-- Product Information Section -->
                 <div class="product-info">
-                    <h1 id="product-title">Premium Perfume</h1>
+                    <h1 id="product-title">Premium Product</h1>
                     <div class="product-meta">
                         <span class="sku">SKU: PR-001</span>
                         <div class="product-rating">
-                            <span id="product-rating">4.5</span>
                             <div class="stars">
                                 <i class="fas fa-star" style="color: #d4a574;"></i>
                                 <i class="fas fa-star" style="color: #d4a574;"></i>
                                 <i class="fas fa-star" style="color: #d4a574;"></i>
                                 <i class="fas fa-star" style="color: #d4a574;"></i>
                                 <i class="fas fa-star-half-alt" style="color: #d4a574;"></i>
-                                <span>(128 reviews)</span>
+                                <span style="font-family: 'Inter', sans-serif; font-size: 13px; color: #999;">(128 reviews)</span>
                             </div>
                         </div>
                     </div>
@@ -104,7 +568,7 @@
                         <span class="items-left">Only 5 left in stock</span>
                     </div>
                     <p class="short-description">
-                        Experience the finest fragrance with our premium perfume. Made with natural ingredients and long-lasting scent.
+                        Experience luxury with our premium product. Crafted with attention to detail and quality.
                     </p>
 
                     <!-- Product Options -->
@@ -143,303 +607,9 @@
             </div>
         </div>
     </section>
-
-    <!-- Product Tabs Section -->
-    <section class="product-tabs">
-        <div class="container">
-            <div class="tabs-container">
-                <ul class="tab-nav">
-                    <li class="tab active" data-tab="description">Description</li>
-                    <li class="tab" data-tab="reviews">Reviews (128)</li>
-                    <li class="tab" data-tab="shipping">Shipping & Returns</li>
-                </ul>
-                
-                <div class="tab-content">
-                    <div class="tab-pane active" id="description">
-                        <h3>Product Description</h3>
-                        <p>Our Premium Perfume is crafted with the finest natural ingredients to provide a long-lasting, captivating scent. This luxurious fragrance combines top notes of bergamot and lemon with middle notes of jasmine and rose, resting on a base of vanilla and musk.</p>
-                        <p>Perfect for any occasion, this perfume is designed to make you feel confident and elegant throughout the day. The sophisticated blend of scents creates a unique olfactory experience that is both memorable and alluring.</p>
-                        <h4>Key Features:</h4>
-                        <ul>
-                            <li>Long-lasting fragrance (up to 12 hours)</li>
-                            <li>Made with natural ingredients</li>
-                            <li>Available in multiple sizes</li>
-                            <li>Eco-friendly packaging</li>
-                            <li>Cruelty-free and vegan</li>
-                        </ul>
-                    </div>
-                    
-                    <div class="tab-pane" id="reviews">
-                        <h3>Customer Reviews</h3>
-                        <div class="reviews-summary">
-                            <div class="rating-overview">
-                                <div class="overall-rating" id="overall-rating">0.0</div>
-                                <div class="stars-large" id="stars-large">
-                                    <i class="far fa-star"></i>
-                                    <i class="far fa-star"></i>
-                                    <i class="far fa-star"></i>
-                                    <i class="far fa-star"></i>
-                                    <i class="far fa-star"></i>
-                                </div>
-                                <p id="review-count-text">No reviews yet</p>
-                            </div>
-                            <div class="rating-breakdown" id="rating-breakdown">
-                                <div class="rating-bar">
-                                    <span>5 stars</span>
-                                    <div class="bar">
-                                        <div class="fill" style="width: 0%;"></div>
-                                    </div>
-                                    <span>0</span>
-                                </div>
-                                <div class="rating-bar">
-                                    <span>4 stars</span>
-                                    <div class="bar">
-                                        <div class="fill" style="width: 0%;"></div>
-                                    </div>
-                                    <span>0</span>
-                                </div>
-                                <div class="rating-bar">
-                                    <span>3 stars</span>
-                                    <div class="bar">
-                                        <div class="fill" style="width: 0%;"></div>
-                                    </div>
-                                    <span>0</span>
-                                </div>
-                                <div class="rating-bar">
-                                    <span>2 stars</span>
-                                    <div class="bar">
-                                        <div class="fill" style="width: 0%;"></div>
-                                    </div>
-                                    <span>0</span>
-                                </div>
-                                <div class="rating-bar">
-                                    <span>1 star</span>
-                                    <div class="bar">
-                                        <div class="fill" style="width: 0%;"></div>
-                                    </div>
-                                    <span>0</span>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="reviews-list" id="reviews-list">
-                            <!-- Reviews will be loaded dynamically -->
-                            <p class="no-reviews">No reviews yet. Be the first to review this product!</p>
-                        </div>
-                        
-                        <div class="add-review">
-                            <h3>Add Your Review</h3>
-                            <form class="review-form" id="review-form">
-                                <div class="form-group">
-                                    <label for="reviewer-name">Your Name *</label>
-                                    <input type="text" id="reviewer-name" placeholder="Enter your name" required>
-                                </div>
-                                <div class="form-group">
-                                    <label for="review-rating">Your Rating *</label>
-                                    <div class="rating-input">
-                                        <i class="far fa-star" data-rating="1"></i>
-                                        <i class="far fa-star" data-rating="2"></i>
-                                        <i class="far fa-star" data-rating="3"></i>
-                                        <i class="far fa-star" data-rating="4"></i>
-                                        <i class="far fa-star" data-rating="5"></i>
-                                    </div>
-                                    <input type="hidden" id="selected-rating" value="0">
-                                </div>
-                                <div class="form-group">
-                                    <label for="review-title">Review Title *</label>
-                                    <input type="text" id="review-title" placeholder="Give your review a title" required>
-                                </div>
-                                <div class="form-group">
-                                    <label for="review-text">Your Review *</label>
-                                    <textarea id="review-text" rows="5" placeholder="Share your experience with this product" required></textarea>
-                                </div>
-                                <button type="submit" class="btn btn-primary">Submit Review</button>
-                            </form>
-                        </div>
-                    </div>
-                    
-                    <div class="tab-pane" id="shipping">
-                        <h3>Shipping Information</h3>
-                        <p><strong>Delivery Coverage:</strong> We offer shipping across Pakistan only.</p>
-                        
-                        <h4>Delivery Charges:</h4>
-                        <table class="spec-table" style="width: 100%; margin: 15px 0;">
-                            <tr>
-                                <td><strong>Order Amount</strong></td>
-                                <td><strong>Delivery Charges</strong></td>
-                            </tr>
-                            <tr>
-                                <td>Rs 500 - Rs 1,999</td>
-                                <td>Rs 250</td>
-                            </tr>
-                            <tr>
-                                <td>Rs 2,000 - Rs 2,999</td>
-                                <td>Rs 350</td>
-                            </tr>
-                            <tr>
-                                <td>Rs 3,000 - Rs 4,999</td>
-                                <td>Rs 500</td>
-                            </tr>
-                            <tr>
-                                <td>Rs 5,000 and above</td>
-                                <td><strong style="color: #28a745;">FREE DELIVERY</strong></td>
-                            </tr>
-                        </table>
-                        
-                        <h4>Delivery Time:</h4>
-                        <ul>
-                            <li><strong>Standard Delivery:</strong> 3-5 business days</li>
-                            <li><strong>Order Tracking:</strong> Available for all orders</li>
-                        </ul>
-                        
-                        <p><strong>Note:</strong> Minimum order amount is Rs 500.</p>
-                        
-                        <h3 style="margin-top: 30px;">Returns Policy</h3>
-                        <p>We accept returns within <strong>7 days of delivery</strong>.</p>
-                        
-                        <h4>Return Conditions:</h4>
-                        <ul>
-                            <li>Product must be unused and in original packaging</li>
-                            <li>Return shipping costs are borne by the customer</li>
-                            <li>Refund will be processed within 5-7 business days</li>
-                        </ul>
-                        
-                        <h4>How to Return:</h4>
-                        <p>To initiate a return, please contact us at <a href="mailto:support@ibreeslilutoor.com" id="shipping-email">support@ibreeslilutoor.com</a> with your order details.</p>
-                        
-                        <p style="margin-top: 20px;"><strong>For any questions about shipping or returns, please contact our customer service team.</strong></p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Related Products Section -->
-    <section class="related-products">
-        <div class="container">
-            <h2>You May Also Like</h2>
-            <div class="products-grid" id="related-products">
-                <!-- Related products will be loaded dynamically -->
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h3>BLOOME-BY-NAYAB</h3>
-                    <p>Premium products for every need. Quality guaranteed.</p>
-                    <div class="social-links">
-                        <a href="#"><i class="fab fa-facebook"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-youtube"></i></a>
-                    </div>
-                </div>
-                <div class="footer-section">
-                    <h4>Quick Links</h4>
-                    <ul>
-                        <li><a href="faq.html">FAQ</a></li>
-                        <li><a href="shipping.html">Shipping Info</a></li>
-                        <li><a href="privacy.html">Privacy Policy</a></li>
-                        <li><a href="terms.html">Terms & Conditions</a></li>
-                        <li><a href="returns.html">Return Policy</a></li>
-                        <li><a href="admin/login.html" style="color: #888; font-size: 0.85em;">Admin Access</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h4>Contact Info</h4>
-                    <p><i class="fas fa-phone"></i> <span id="footer-phone">+1 (123) 456-7890</span></p>
-                    <p><i class="fas fa-envelope"></i> <a id="footer-email" href="mailto:info@qariwebstore.com">info@qariwebstore.com</a></p>
-                    <p><i class="fas fa-map-marker-alt"></i> <span id="footer-address">123 Store Street, City, Country</span></p>
-                </div>
-                <div class="footer-section">
-                    <h4>Newsletter</h4>
-                    <p>Subscribe to get special offers and updates</p>
-                    <form class="newsletter-form">
-                        <input type="email" placeholder="Your email address" required>
-                        <button type="submit">Subscribe</button>
-                    </form>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2025 BLOOME-BY-NAYAB. All rights reserved.</p>
-            </div>
-        </div>
-    </footer>
-
-    <script src="js/main.js"></script>
-    <script src="js/product-detail.js"></script>
-    <script>
-        // Load store settings from server (fallback to localStorage) and populate footer/contact links
-        (function loadStoreSettings() {
-            const defaults = {
-                storeName: 'BLOOME BY NAYAB',
-                storeEmail: 'support@ibreeslilutoor.com',
-                storePhone: '+92 300 1234567',
-                storeAddress: 'Peshawar, Khyber Pakhtunkhwa, Pakistan'
-            };
-
-            function apply(store) {
-                const phone = store.phone || defaults.storePhone;
-                const email = store.email || defaults.storeEmail;
-                const address = store.address || defaults.storeAddress;
-
-                const phoneEl = document.getElementById('footer-phone');
-                const emailEl = document.getElementById('footer-email');
-                const addrEl = document.getElementById('footer-address');
-
-                if (phoneEl) phoneEl.textContent = phone;
-                if (emailEl) {
-                    emailEl.textContent = email;
-                    emailEl.href = `mailto:${email}`;
-                }
-                if (addrEl) addrEl.textContent = address;
-            }
-
-            fetch('/api/admin/settings').then(r => r.json()).then(data => {
-                if (data && data.success && data.settings) {
-                    const s = data.settings.storeSettings || {};
-                    apply(s);
-                    // Mirror to localStorage for legacy usage
-                    localStorage.setItem('storeSettings', JSON.stringify(s));
-                    
-                    // Update shipping email if present
-                    const shippingEmail = document.getElementById('shipping-email');
-                    if (shippingEmail && s.email) {
-                        shippingEmail.textContent = s.email;
-                        shippingEmail.href = `mailto:${s.email}`;
-                    }
-                    return;
-                }
-
-                const storeSettings = JSON.parse(localStorage.getItem('storeSettings') || '{}');
-                apply(storeSettings);
-                
-                // Update shipping email
-                const shippingEmail = document.getElementById('shipping-email');
-                if (shippingEmail && storeSettings.email) {
-                    shippingEmail.textContent = storeSettings.email;
-                    shippingEmail.href = `mailto:${storeSettings.email}`;
-                }
-            }).catch(() => {
-                const storeSettings = JSON.parse(localStorage.getItem('storeSettings') || '{}');
-                apply(storeSettings);
-                
-                // Update shipping email
-                const shippingEmail = document.getElementById('shipping-email');
-                if (shippingEmail && storeSettings.email) {
-                    shippingEmail.textContent = storeSettings.email;
-                    shippingEmail.href = `mailto:${storeSettings.email}`;
-                }
-            });
-        })();
-    </script>
     
-    <!-- Particle Animation Script -->
     <script>
+        // Create twinkling particles
         function createParticles() {
             const container = document.getElementById('particles');
             for (let i = 0; i < 50; i++) {
@@ -453,5 +623,7 @@
         }
         createParticles();
     </script>
+    <script src="js/main.js"></script>
+    <script src="js/product-detail.js"></script>
 </body>
 </html>
