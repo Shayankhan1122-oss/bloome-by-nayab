@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Orders Management - IBREES-LIL-HUZAIFA</title>
+    <title>Orders Management - BLOOME-BY-NAYAB</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:wght@400;500;600;700;800&family=Cormorant:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     
     <style>
         * {
@@ -14,7 +15,7 @@
 
         body {
             font-family: Arial, sans-serif;
-            background: #f5f5f5;
+            background: linear-gradient(135deg, #faf8f5 0%, #f5f2ed 100%);
         }
 
         .container {
@@ -25,7 +26,8 @@
         /* Sidebar */
         .sidebar {
             width: 250px;
-            background: #2c3e50;
+            background: linear-gradient(180deg, #1a1a2e 0%, #16213e 100%);
+            box-shadow: 4px 0 20px rgba(0,0,0,0.1);
             color: white;
             padding: 20px 0;
             position: fixed;
@@ -36,21 +38,31 @@
         .sidebar h2 {
             padding: 0 20px 20px;
             border-bottom: 1px solid rgba(255,255,255,0.1);
+            font-family: 'Bodoni Moda', serif;
+            color: #d4a574;
+            letter-spacing: 2px;
         }
 
         .sidebar a {
             display: block;
             padding: 15px 20px;
-            color: white;
+            color: rgba(255,255,255,0.8);
             text-decoration: none;
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            letter-spacing: 0.5px;
+            transition: all 0.3s;
         }
 
         .sidebar a:hover {
-            background: #34495e;
+            background: rgba(212,165,116,0.1);
+            color: #d4a574;
         }
 
         .sidebar a.active {
-            background: #3498db;
+            background: rgba(212,165,116,0.2);
+            color: #d4a574;
+            border-left: 3px solid #d4a574;
         }
 
         /* Main content */
@@ -63,11 +75,12 @@
         .header {
             background: white;
             padding: 20px;
-            border-radius: 8px;
+            border-radius: 12px;
             margin-bottom: 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
         }
 
         .controls {
@@ -105,30 +118,36 @@
         }
 
         .stat-card {
-            background: white;
+            background: linear-gradient(135deg, white 0%, #fafafa 100%);
             padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            border-top: 3px solid #d4a574;
         }
 
         .stat-card h3 {
             font-size: 14px;
-            color: #666;
+            color: #1a1a2e;
             margin-bottom: 10px;
+            font-family: 'Inter', sans-serif;
+            letter-spacing: 1px;
         }
 
         .stat-card .value {
             font-size: 32px;
             font-weight: bold;
-            color: #2c3e50;
+            background: linear-gradient(135deg, #1a1a2e 0%, #d4a574 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         /* Table */
         .table-wrapper {
             background: white;
-            border-radius: 8px;
+            border-radius: 12px;
             padding: 20px;
             overflow-x: auto;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
         }
 
         table {
@@ -186,13 +205,19 @@
         }
 
         .btn-view {
-            background: #3498db;
+            background: linear-gradient(135deg, #d4a574 0%, #c9935e 100%);
             color: white;
             padding: 6px 12px;
             border: none;
             border-radius: 4px;
             cursor: pointer;
             margin-right: 5px;
+            transition: all 0.3s;
+        }
+        
+        .btn-view:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(212,165,116,0.3);
         }
 
         .btn-confirm {
@@ -236,18 +261,19 @@
         .modal-content {
             background: white;
             padding: 30px;
-            border-radius: 8px;
+            border-radius: 12px;
             max-width: 700px;
             width: 90%;
             max-height: 90vh;
             overflow-y: auto;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
         }
 
         .modal-header {
             display: flex;
             justify-content: space-between;
             margin-bottom: 20px;
-            border-bottom: 2px solid #3498db;
+            border-bottom: 2px solid #d4a574;
             padding-bottom: 10px;
         }
 
@@ -263,8 +289,9 @@
 
         .order-details h3 {
             margin: 20px 0 10px;
-            color: #2c3e50;
+            color: #1a1a2e;
             font-size: 18px;
+            font-family: 'Bodoni Moda', serif;
         }
 
         .order-item {
@@ -272,9 +299,15 @@
             gap: 15px;
             align-items: center;
             padding: 12px;
-            background: #f8f9fa;
+            background: linear-gradient(135deg, #f5f2ed 0%, #e8e3dc 100%);
             margin-bottom: 8px;
             border-radius: 4px;
+            border-left: 4px solid #d4a574;
+            transition: transform 0.3s;
+        }
+        
+        .order-item:hover {
+            transform: translateX(5px);
         }
 
         .order-item img {
@@ -301,7 +334,9 @@
 
         .order-item-price {
             font-weight: 600;
-            color: #3498db;
+            background: linear-gradient(135deg, #1a1a2e 0%, #d4a574 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         .info-row {
@@ -347,22 +382,22 @@
         }
 
         .status-btn.confirm {
-            background: #28a745;
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
             color: white;
         }
 
         .status-btn.process {
-            background: #17a2b8;
+            background: linear-gradient(135deg, #d4a574 0%, #c9935e 100%);
             color: white;
         }
 
         .status-btn.ship {
-            background: #007bff;
+            background: linear-gradient(135deg, #1a1a2e 0%, #2d3561 100%);
             color: white;
         }
 
         .status-btn.deliver {
-            background: #20c997;
+            background: linear-gradient(135deg, #20c997 0%, #28a745 100%);
             color: white;
         }
 
@@ -559,7 +594,7 @@
     <div class="container">
         <!-- Sidebar -->
         <div class="sidebar">
-            <h2>IBREES-LIL-HUZAIFA</h2>
+            <h2>BLOOME-BY-NAYAB</h2>
             <a href="dashboard.html">📊 Dashboard</a>
             <a href="products.html">📦 Products</a>
             <a href="orders.html" class="active">🛒 Orders</a>
