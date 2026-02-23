@@ -637,7 +637,7 @@
         </div>
     </footer>
 
-    <script>
+ <script>
         // Create twinkling particles
         function createParticles() {
             const container = document.getElementById('particles');
@@ -654,102 +654,5 @@
     </script>
     <script src="js/main.js"></script>
     <script src="js/product-detail.js"></script>
-    <script>
-    // Fix product loading
-    document.addEventListener('DOMContentLoaded', async function() {
-        const urlParams = new URLSearchParams(window.location.search);
-        const productId = urlParams.get('id');
-        
-        if (!productId) {
-            console.error('No product ID in URL');
-            return;
-        }
-        
-        try {
-            // Load product from API
-            const response = await fetch(`/api/products/${productId}`);
-            if (!response.ok) throw new Error('Product not found');
-            
-            const data = await response.json();
-            const product = data.product || data;
-            
-            // Update page
-            const titleEl = document.getElementById('product-title');
-            if (titleEl && product.name) titleEl.textContent = product.name;
-            const priceEl = document.querySelector('.current-price');
-            if (priceEl && typeof product.price === 'number') priceEl.textContent = `Rs ${product.price.toFixed(2)}`;
-            const descEl = document.querySelector('.short-description');
-            if (descEl) descEl.textContent = product.description || '';
-            
-            // Update images
-            const mainImage = document.getElementById('main-product-image');
-            const thumbnailGallery = document.querySelector('.thumbnail-gallery');
-            
-            if (product.images && product.images.length > 0) {
-                if (mainImage) mainImage.src = product.images[0];
-                
-                // Create thumbnails
-                if (thumbnailGallery) {
-                    thumbnailGallery.innerHTML = product.images.map((img, index) => `
-                        <div class="thumbnail ${index === 0 ? 'active' : ''}" data-src="${img}">
-                            <img src="${img}" alt="Image ${index + 1}">
-                        </div>
-                    `).join('');
-                    
-                    // Thumbnail click events
-                    thumbnailGallery.querySelectorAll('.thumbnail').forEach(thumb => {
-                        thumb.addEventListener('click', function() {
-                            thumbnailGallery.querySelectorAll('.thumbnail').forEach(t => t.classList.remove('active'));
-                            this.classList.add('active');
-                            if (mainImage) mainImage.src = this.dataset.src;
-                        });
-                    });
-                }
-            }
-            
-            // Update cart buttons
-            document.querySelectorAll('.add-to-cart, .btn-order-now').forEach(btn => {
-                btn.dataset.id = product._id || product.id || productId;
-            });
-            
-            // Update stock status
-            const stockStatus = document.getElementById('stock-status');
-            const itemsLeft = document.getElementById('items-left');
-            if (stockStatus) {
-                if (typeof product.stock === 'number') {
-                    if (product.stock > 0) {
-                        stockStatus.textContent = 'In Stock';
-                        stockStatus.style.color = '#28a745';
-                        if (itemsLeft) itemsLeft.textContent = product.stock < 10 ? `Only ${product.stock} left in stock` : '';
-                    } else {
-                        stockStatus.textContent = 'Out of Stock';
-                        stockStatus.style.color = '#e74c3c';
-                        document.querySelectorAll('.btn-primary').forEach(b => b.disabled = true);
-                    }
-                } else {
-                    // Fallback if no stock info
-                    stockStatus.textContent = product.inStock ? 'In Stock' : 'Out of Stock';
-                    if (!product.inStock) document.querySelectorAll('.btn-primary').forEach(b => b.disabled = true);
-                }
-            }
-        } catch (error) {
-            console.error('Error loading product:', error);
-            const info = document.querySelector('.product-info');
-            if (info) info.innerHTML = '<p>Product not found</p>';
-        }
-    });
-
-    // Quantity controls
-    document.addEventListener('click', function(e) {
-        if (e.target && e.target.classList.contains('minus')) {
-            const qty = document.getElementById('quantity');
-            if (qty && qty.value > 1) qty.value = parseInt(qty.value) - 1;
-        }
-        if (e.target && e.target.classList.contains('plus')) {
-            const qty = document.getElementById('quantity');
-            if (qty && qty.value < 10) qty.value = parseInt(qty.value) + 1;
-        }
-    });
-    </script>
 </body>
 </html>
