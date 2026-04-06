@@ -655,6 +655,123 @@
         createParticles();
     </script>
     <script src="js/main.js"></script>
-    <script src="js/product-detail.js"></script>
+    <script>
+    // INLINE PRODUCT LOADER - WORKS IMMEDIATELY
+    document.addEventListener('DOMContentLoaded', async function() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const productId = parseInt(urlParams.get('id'));
+        
+        console.log('🔍 Loading product ID:', productId);
+        
+        if (!productId) return;
+        
+        try {
+            const response = await fetch('/api/admin/products');
+            const data = await response.json();
+            const products = data.success ? data.products : data;
+            const product = products.find(p => p.id === productId);
+            
+            console.log('✅ Product:', product);
+            
+            if (!product) {
+                alert('Product not found!');
+                return;
+            }
+            
+            // Wait for DOM to be fully ready
+            await new Promise(resolve => setTimeout(resolve, 100));
+            
+            // Update with null checks
+            const title = document.getElementById('product-title');
+            if (title) title.textContent = product.name;
+            
+            const breadcrumb = document.getElementById('product-name');
+            if (breadcrumb) breadcrumb.textContent = product.name;
+            
+            const price = document.querySelector('.current-price');
+            if (price) price.textContent = `Rs ${product.price.toFixed(2)}`;
+            
+            const desc = document.querySelector('.short-description');
+            if (desc) desc.textContent = product.description || 'Premium quality product';
+            
+            const sku = document.querySelector('.sku');
+            if (sku) sku.textContent = `SKU: ${product.sku || 'N/A'}`;
+            
+            // Update image
+            const mainImg = document.getElementById('main-product-image');
+            if (mainImg) {
+                mainImg.src = product.image;
+                mainImg.onerror = () => {
+                    mainImg.src = 'https://via.placeholder.com/400x400/d4a574/ffffff?text=' + encodeURIComponent(product.name);
+                };
+            }
+            
+            // Update gallery
+            const gallery = document.querySelector('.thumbnail-gallery');
+            if (gallery) {
+                const images = Array.isArray(product.gallery) && product.gallery.length > 0 ? product.gallery : [product.image];
+                gallery.innerHTML = images.map((img, i) => `
+                    <div class="thumbnail ${i === 0 ? 'active' : ''}" data-src="${img}">
+                        <img src="${img}" alt="${product.name} ${i+1}" onerror="this.src='https://via.placeholder.com/120x120/d4a574/ffffff?text=Image'">
+                    </div>
+                `).join('');
+                
+                // Click handlers
+                gallery.querySelectorAll('.thumbnail').forEach(thumb => {
+                    thumb.onclick = function() {
+                        gallery.querySelectorAll('.thumbnail').forEach(t => t.classList.remove('active'));
+                        this.classList.add('active');
+                        if (mainImg) mainImg.src = this.dataset.src;
+                    };
+                });
+            }
+            
+            // Update stock
+            const stock = document.getElementById('stock-status');
+            const left = document.getElementById('items-left');
+            if (stock && product.stock !== undefined) {
+                if (product.stock > 0) {
+                    stock.textContent = 'In Stock';
+                    stock.style.color = '#28a745';
+                    if (left && product.stock < 10) {
+                        left.textContent = `Only ${product.stock} left`;
+                    }
+                } else {
+                    stock.textContent = 'Out of Stock';
+                    stock.style.color = '#e74c3c';
+                }
+            }
+            
+            // Update buttons
+            document.querySelectorAll('.add-to-cart, .btn-order-now').forEach(btn => {
+                btn.dataset.id = product.id;
+                btn.dataset.name = product.name;
+                btn.dataset.price = product.price;
+                btn.dataset.image = product.image;
+            });
+            
+            // Page title
+            document.title = `${product.name} - BLOOME BY NAYAB`;
+            
+            console.log('✅ Page updated!');
+            
+        } catch (error) {
+            console.error('❌ Error:', error);
+        }
+    });
+    
+    // Quantity controls
+    document.addEventListener('click', e => {
+        const qty = document.getElementById('quantity');
+        if (!qty) return;
+        
+        if (e.target.classList.contains('minus') && qty.value > 1) {
+            qty.value = parseInt(qty.value) - 1;
+        }
+        if (e.target.classList.contains('plus') && qty.value < 10) {
+            qty.value = parseInt(qty.value) + 1;
+        }
+    });
+    </script>
 </body>
 </html>
